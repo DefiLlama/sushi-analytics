@@ -1,5 +1,5 @@
 const express = require('express')
-const sushi = require('./DefiLlama-Adapters/projects/sushiswap/index')
+const sushi = require('./DefiLlama-Adapters/projects/sushiswap/api')
 const PORT = process.env.PORT || 5000
 
 let chainData = {}
