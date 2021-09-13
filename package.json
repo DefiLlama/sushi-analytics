@@ -1,0 +1,16 @@
+{
+  "name": "node-js-getting-started",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
+  "engines": {
+    "node": "14.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "rm -rf DefiLlama-Adapters && git clone https://github.com/DefiLlama/DefiLlama-Adapters && (cd DefiLlama-Adapters && npm install)"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
