@@ -1,6 +1,5 @@
 const express = require('express')
 const sushi = require('./DefiLlama-Adapters/projects/sushiswap/api')
-const mdex = require('./DefiLlama-Adapters/projects/mdex/api')
 const synthetix = require('./DefiLlama-Adapters/projects/synthetix/api')
 const enzyme = require('./DefiLlama-Adapters/projects/enzyme/api')
 const PORT = process.env.PORT || 5000
@@ -9,7 +8,6 @@ const HOUR = 3600 * 1e3
 let chainData = {}
 const projects = {
   sushi,
-  mdex,
   enzyme,
   synthetix
 }
