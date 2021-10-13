@@ -11,6 +11,7 @@
     "postinstall": "rm -rf DefiLlama-Adapters && git clone https://github.com/DefiLlama/DefiLlama-Adapters && (cd DefiLlama-Adapters && npm install)"
   },
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "underscore": "^1.13.1"
   }
 }
