@@ -5,7 +5,7 @@ const adaptersDir = process.env.DEFILLAMA_ADAPTERS_FOLDER || './DefiLlama-Adapte
 
 let chainData = {}
 const projects = {
-  sushi: require(adaptersDir + '/sushiswap/api'),
+  // sushi: require(adaptersDir + '/sushiswap/api'),
   synthetix: require(adaptersDir + '/synthetix/api'),
   'karura-dex': require(adaptersDir + '/karura-dex/api'),
   'karura-lending': require(adaptersDir + '/karura-lending/api'),
