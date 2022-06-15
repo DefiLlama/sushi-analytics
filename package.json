@@ -1,17 +1,13 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
-  "engines": {
-    "node": "14.x"
-  },
+  "name": "sushi-analytics",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "rm -rf DefiLlama-Adapters && git clone https://github.com/DefiLlama/DefiLlama-Adapters && (cd DefiLlama-Adapters && npm install)"
+    "postinstall": "sh post-install.sh"
   },
   "dependencies": {
-    "express": "^4.15.2",
-    "underscore": "^1.13.1"
+    "@polkadot/api": "^8.8.2",
+    "express": "^4.15.2"
   }
 }
