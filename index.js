@@ -1,15 +1,17 @@
 const express = require('express')
-const sushi = require('./DefiLlama-Adapters/projects/sushiswap/api')
-const synthetix = require('./DefiLlama-Adapters/projects/synthetix/api')
-//const enzyme = require('./DefiLlama-Adapters/projects/enzyme/api')
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
+const adaptersDir = process.env.DEFILLAMA_ADAPTERS_FOLDER || './DefiLlama-Adapters/projects'
 
 let chainData = {}
 const projects = {
-  sushi,
-  //enzyme,
-  synthetix
+  sushi: require(adaptersDir + '/sushiswap/api'),
+  synthetix: require(adaptersDir + '/synthetix/api'),
+  'karura-dex': require(adaptersDir + '/karura-dex/api'),
+  'karura-lending': require(adaptersDir + '/karura-lending/api'),
+  'karura-staking': require(adaptersDir + '/karura-staking/api'),
+  bifrost: require(adaptersDir + '/bifrost/api'),
+  genshiro: require(adaptersDir + '/genshiro/api'),
 }
 const retries = 5;
 
@@ -49,9 +51,15 @@ async function updateData(tvlFunction, project, chain) {
       return;
     } catch (e) {
       console.log(e)
+      await sleepXMinutes(5)
     }
   }
 }
+
+async function sleepXMinutes(minutes = 10) {
+  return new Promise((resolve) => setTimeout(resolve, 1000 * 60 * minutes))
+}
+
 function getData() {
   console.log("starting")
   Object.entries(projects).forEach(([name, project])=>{
