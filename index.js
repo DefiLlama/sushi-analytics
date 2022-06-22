@@ -1,15 +1,17 @@
 const express = require('express')
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
-const adaptersDir = process.env.DEFILLAMA_ADAPTERS_FOLDER || './DefiLlama-Adapters/projects'
+const adaptersDir = './DefiLlama-Adapters/projects'
 
 let chainData = {}
 const projects = {
-  // sushi: require(adaptersDir + '/sushiswap/api'),
   synthetix: require(adaptersDir + '/synthetix/api'),
   'karura-dex': require(adaptersDir + '/karura-dex/api'),
   'karura-lending': require(adaptersDir + '/karura-lending/api'),
   'karura-staking': require(adaptersDir + '/karura-staking/api'),
+  'acala-dex': require(adaptersDir + '/acala-dex/api'),
+  'acala-lending': require(adaptersDir + '/acala-lending/api'),
+  'acala-staking': require(adaptersDir + '/acala-staking/api'),
   bifrost: require(adaptersDir + '/bifrost/api'),
   genshiro: require(adaptersDir + '/genshiro/api'),
 }
@@ -33,7 +35,7 @@ clearData()
 setInterval(getData, HOUR)
 getData()
 
-function time(){
+function time() {
   return Math.round(Date.now() / 1e3);
 }
 
@@ -62,7 +64,7 @@ async function sleepXMinutes(minutes = 10) {
 
 function getData() {
   console.log("starting")
-  Object.entries(projects).forEach(([name, project])=>{
+  Object.entries(projects).forEach(([name, project]) => {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     chains.forEach(chain => {
       updateData(project[chain].tvl, name, chain)
