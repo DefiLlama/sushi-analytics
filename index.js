@@ -12,6 +12,7 @@ const projects = {
   'acala-dex': require(adaptersDir + '/acala-dex/api'),
   'acala-lending': require(adaptersDir + '/acala-lending/api'),
   'acala-staking': require(adaptersDir + '/acala-staking/api'),
+  'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
   bifrost: require(adaptersDir + '/bifrost/api'),
   genshiro: require(adaptersDir + '/genshiro/api'),
 }
