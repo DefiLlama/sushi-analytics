@@ -20,9 +20,9 @@ const projects = {
 const bulkyAdapters = {
   // dexpad: require(adaptersDir + '/dexpad/index'),
   // 'team-finance': require(adaptersDir + '/team-finance/index'),
-  deeplock: require(adaptersDir + '/deeplock/index'),
+  // deeplock: require(adaptersDir + '/deeplock/index'),
   // unicrypt: require(adaptersDir + '/unicrypt/index'),
-  pinksale: require(adaptersDir + '/pinksale/index'),
+  // pinksale: require(adaptersDir + '/pinksale/index'),
 }
 const retries = 5;
 
