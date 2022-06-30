@@ -18,11 +18,11 @@ const projects = {
 }
 
 const bulkyAdapters = {
-  deeplock: require(adaptersDir + '/deeplock/api'),
-  pinksale: require(adaptersDir + '/pinksale/api'),
-  unicrypt: require(adaptersDir + '/unicrypt/api'),
-  dexpad: require(adaptersDir + '/dexpad/api'),
-  'team-finance': require(adaptersDir + '/team-finance/api'),
+  dexpad: require(adaptersDir + '/dexpad/index'),
+  unicrypt: require(adaptersDir + '/unicrypt/index'),
+  'team-finance': require(adaptersDir + '/team-finance/index'),
+  deeplock: require(adaptersDir + '/deeplock/index'),
+  pinksale: require(adaptersDir + '/pinksale/index'),
 }
 const retries = 5;
 
