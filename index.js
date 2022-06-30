@@ -19,9 +19,9 @@ const projects = {
 
 const bulkyAdapters = {
   dexpad: require(adaptersDir + '/dexpad/index'),
-  unicrypt: require(adaptersDir + '/unicrypt/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
+  unicrypt: require(adaptersDir + '/unicrypt/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
 }
 const retries = 5;
