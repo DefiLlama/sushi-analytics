@@ -16,31 +16,50 @@ const projects = {
   bifrost: require(adaptersDir + '/bifrost/api'),
   genshiro: require(adaptersDir + '/genshiro/api'),
 }
+
+const bulkyAdapters = {
+  deeplock: require(adaptersDir + '/deeplock/api'),
+  pinksale: require(adaptersDir + '/pinksale/api'),
+  unicrypt: require(adaptersDir + '/unicrypt/api'),
+  dexpad: require(adaptersDir + '/dexpad/api'),
+  'team-finance': require(adaptersDir + '/team-finance/api'),
+}
 const retries = 5;
 
 express()
   .get('/', (req, res) => {
+    if (req.query.project) {
+      // if a project and chain name is passed in query, just send over those info instead of all chain data
+      const {project, chain } = req.query
+      let data = chainData[project]
+      if (chain && data)
+        data = { [chain]: data[chain] }
+      return res.send({ [project]: data })
+    }
     res.send(chainData)
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 function clearData() {
-  chainData = Object.keys(projects).reduce((data, project) => {
-    data[project] = {}
-    return data
-  }, {})
+  chainData = [...Object.keys(projects), ...Object.keys(bulkyAdapters)].reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
 }
 
 setInterval(clearData, 12 * HOUR)
-clearData()
 setInterval(getData, HOUR)
+setInterval(updateBulkyData, 3 * HOUR)
+
+clearData()
 getData()
+updateBulkyData()
 
 function time() {
   return Math.round(Date.now() / 1e3);
 }
 
-async function updateData(tvlFunction, project, chain) {
+async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
+  if (onlyIfMissing) {
+    if (chainData[project] && chainData[project][chain]) return;  // update cache only if data is missing
+  }
   const start = time()
   for (let i = 0; i < retries; i++) {
     const timestamp = time()
@@ -64,11 +83,19 @@ async function sleepXMinutes(minutes = 10) {
 }
 
 function getData() {
-  console.log("starting")
   Object.entries(projects).forEach(([name, project]) => {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     chains.forEach(chain => {
       updateData(project[chain].tvl, name, chain)
     })
   })
+}
+
+// Adapters are run in sequence here, we wait for running one to finish before starting the next
+async function updateBulkyData() {
+  for (const [name, project] of Object.entries(bulkyAdapters)) {
+    const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
+    for (const chain of chains)
+      await updateData(project[chain].tvl, name, chain, true)
+  }
 }
