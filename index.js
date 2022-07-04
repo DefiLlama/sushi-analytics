@@ -18,10 +18,10 @@ const projects = {
 }
 
 const bulkyAdapters = {
-  // dexpad: require(adaptersDir + '/dexpad/index'),
-  // 'team-finance': require(adaptersDir + '/team-finance/index'),
-  // deeplock: require(adaptersDir + '/deeplock/index'),
-  // unicrypt: require(adaptersDir + '/unicrypt/index'),
+  dexpad: require(adaptersDir + '/dexpad/index'),
+  'team-finance': require(adaptersDir + '/team-finance/index'),
+  unicrypt: require(adaptersDir + '/unicrypt/index'),
+  deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
 }
 const retries = 5;
@@ -46,7 +46,7 @@ function clearData() {
 
 setInterval(clearData, 12 * HOUR)
 setInterval(getData, HOUR)
-setInterval(updateBulkyData, 3 * HOUR)
+setInterval(updateBulkyData, HOUR)
 
 clearData()
 getData()
