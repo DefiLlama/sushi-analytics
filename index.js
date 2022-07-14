@@ -19,12 +19,16 @@ const projects = {
 
 const bulkyAdapters = {
   dexpad: require(adaptersDir + '/dexpad/index'),
+  dxsale: require(adaptersDir + '/dxsale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
 }
 const retries = 5;
+
+// Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
+// Object.keys(projects).forEach(key => delete projects[key])
 
 express()
   .get('/', (req, res) => {
