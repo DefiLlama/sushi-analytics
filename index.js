@@ -24,8 +24,10 @@ const bulkyAdapters = {
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
+  aperture: require(adaptersDir + '/aperture/index'),
 }
-const retries = 5;
+
+const retries = 3;
 
 // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
 // Object.keys(projects).forEach(key => delete projects[key])
