@@ -19,13 +19,13 @@ const projects = {
 }
 
 const bulkyAdapters = {
-  synthetix: require(adaptersDir + '/synthetix/api'),
   dexpad: require(adaptersDir + '/dexpad/index'),
   dxsale: require(adaptersDir + '/dxsale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
+  synthetix: require(adaptersDir + '/synthetix/api'),
 }
 
 const retries = 3;
