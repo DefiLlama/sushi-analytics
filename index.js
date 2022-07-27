@@ -21,14 +21,14 @@ const projects = {
 const bulkyAdapters = {
   dexpad: require(adaptersDir + '/dexpad/index'),
   dxsale: require(adaptersDir + '/dxsale/index'),
-  'team-finance': require(adaptersDir + '/team-finance/index'),
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
   synthetix: require(adaptersDir + '/synthetix/api'),
+  'team-finance': require(adaptersDir + '/team-finance/index'),
 }
 
-const retries = 3;
+const retries = 2;
 
 // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
 // Object.keys(projects).forEach(key => delete projects[key])
@@ -81,7 +81,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       return;
     } catch (e) {
       console.log(e)
-      await sleepXMinutes(5)
+      // await sleepXMinutes(5)
     }
   }
 }
