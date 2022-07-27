@@ -16,10 +16,10 @@ const projects = {
   'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
   bifrost: require(adaptersDir + '/bifrost/api'),
   genshiro: require(adaptersDir + '/genshiro/api'),
-  synthetix: require(adaptersDir + '/synthetix/api'),
 }
 
 const bulkyAdapters = {
+  synthetix: require(adaptersDir + '/synthetix/api'),
   dexpad: require(adaptersDir + '/dexpad/index'),
   dxsale: require(adaptersDir + '/dxsale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
@@ -65,7 +65,7 @@ function time() {
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   if (onlyIfMissing) {
-    if (chainData[project] && chainData[project][chain]) return;  // update cache only if data is missing
+    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
   }
   const start = time()
   for (let i = 0; i < retries; i++) {
@@ -76,6 +76,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
     try {
       const balances = await tvlFunction(timestamp, undefined, {})
       console.log(project, chain, timestamp)
+      if (!chainData[project]) chainData[project] = {}
       chainData[project][chain] = balances
       return;
     } catch (e) {
