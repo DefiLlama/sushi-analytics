@@ -90,13 +90,12 @@ async function sleepXMinutes(minutes = 10) {
   return new Promise((resolve) => setTimeout(resolve, 1000 * 60 * minutes))
 }
 
-function getData() {
-  Object.entries(projects).forEach(([name, project]) => {
+async function getData() {
+  for (const [name, project] of Object.entries(projects)) {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    chains.forEach(chain => {
-      updateData(project[chain].tvl, name, chain)
-    })
-  })
+    for (const chain of chains)
+      await updateData(project[chain].tvl, name, chain)
+  }
 }
 
 // Adapters are run in sequence here, we wait for running one to finish before starting the next
