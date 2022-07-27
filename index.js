@@ -5,7 +5,8 @@ const adaptersDir = './DefiLlama-Adapters/projects'
 
 let chainData = {}
 const projects = {
-  synthetix: require(adaptersDir + '/synthetix/api'),
+  'taiga': require(adaptersDir + '/taiga/api'),
+  'tapio': require(adaptersDir + '/tapio/api'),
   'karura-dex': require(adaptersDir + '/karura-dex/api'),
   'karura-lending': require(adaptersDir + '/karura-lending/api'),
   'karura-staking': require(adaptersDir + '/karura-staking/api'),
@@ -15,6 +16,7 @@ const projects = {
   'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
   bifrost: require(adaptersDir + '/bifrost/api'),
   genshiro: require(adaptersDir + '/genshiro/api'),
+  synthetix: require(adaptersDir + '/synthetix/api'),
 }
 
 const bulkyAdapters = {
