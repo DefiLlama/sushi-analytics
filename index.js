@@ -23,8 +23,8 @@ const bulkyAdapters = {
   dxsale: require(adaptersDir + '/dxsale/index'),
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   deeplock: require(adaptersDir + '/deeplock/index'),
-  pinksale: require(adaptersDir + '/pinksale/index'),
   synthetix: require(adaptersDir + '/synthetix/api'),
+  pinksale: require(adaptersDir + '/pinksale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
 }
 
@@ -37,7 +37,7 @@ express()
   .get('/', (req, res) => {
     if (req.query.project) {
       // if a project and chain name is passed in query, just send over those info instead of all chain data
-      const {project, chain } = req.query
+      const { project, chain } = req.query
       let data = chainData[project]
       if (chain && data)
         data = { [chain]: data[chain] }
@@ -51,13 +51,9 @@ function clearData() {
   chainData = [...Object.keys(projects), ...Object.keys(bulkyAdapters)].reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
 }
 
-setInterval(clearData, 12 * HOUR)
-setInterval(getData, HOUR)
-setInterval(updateBulkyData, HOUR)
-
-clearData()
 getData()
-updateBulkyData()
+setInterval(getData, HOUR)
+
 
 function time() {
   return Math.round(Date.now() / 1e3);
@@ -65,7 +61,7 @@ function time() {
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   if (onlyIfMissing) {
-    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
+    if (chainData[project] && chainData[project][chain]) return;  // update cache only if data is missing
   }
   const start = time()
   for (let i = 0; i < retries; i++) {
@@ -81,7 +77,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       return;
     } catch (e) {
       console.log(e)
-      // await sleepXMinutes(5)
+      await sleepXMinutes(5)
     }
   }
 }
@@ -90,19 +86,23 @@ async function sleepXMinutes(minutes = 10) {
   return new Promise((resolve) => setTimeout(resolve, 1000 * 60 * minutes))
 }
 
+let i = 0
+
 async function getData() {
+  if (i % 24)
+    clearData()
+  i++
+  if (i === 24) i = 1
+
   for (const [name, project] of Object.entries(projects)) {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     for (const chain of chains)
       await updateData(project[chain].tvl, name, chain)
   }
-}
 
-// Adapters are run in sequence here, we wait for running one to finish before starting the next
-async function updateBulkyData() {
   for (const [name, project] of Object.entries(bulkyAdapters)) {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     for (const chain of chains)
-      await updateData(project[chain].tvl, name, chain, true)
+      await updateData(project[chain].tvl, name, chain, true) // update only if data is not found
   }
 }
