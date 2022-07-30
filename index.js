@@ -1,4 +1,4 @@
-const express = require('express')
+const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
@@ -9,20 +9,36 @@ const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 let chainData = {}
 
 const retries = 2;
-
-express()
-  .get('/', (req, res) => {
-    if (req.query.project) {
+const server = http.createServer(async (req, res) => {
+  //set the request route
+  // if (req.url === "/" && req.method === "GET") {
+    //response headers
+    res.writeHead(200, { "Content-Type": "application/json" });
+    //set the response
+    if ((req.query || {}).project) {
       // if a project and chain name is passed in query, just send over those info instead of all chain data
       const { project, chain } = req.query
       let data = chainData[project]
       if (chain && data)
         data = { [chain]: data[chain] }
-      return res.send({ [project]: data })
+      return res.write(JSON.stringify({ [project]: data }))
+    } else {
+      res.write(JSON.stringify(chainData))
     }
-    res.send(chainData)
-  })
-  .listen(PORT, () => console.log(`Listening on ${PORT}`))
+    //end the response
+    res.end();
+  // }
+
+  // // If no route present
+  // else {
+  //   res.writeHead(404, { "Content-Type": "application/json" });
+  //   res.end(JSON.stringify({ message: "Route not found" }));
+  // }
+})
+
+server.listen(PORT, () => {
+  console.log(`server started on port: ${PORT}`);
+})
 
 function clearData() {
   chainData = Object.keys(chainData).reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
