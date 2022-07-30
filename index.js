@@ -2,39 +2,13 @@ const express = require('express')
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
+const simpleGit = require('simple-git')
+
+const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 
 let chainData = {}
-const projects = {
-  'harvest': require(adaptersDir + '/harvest.js'),
-  'hydradex': require(adaptersDir + '/hydradex.js'),
-  'taiga': require(adaptersDir + '/taiga/api'),
-  'tapio': require(adaptersDir + '/tapio/api'),
-  'karura-lending': require(adaptersDir + '/karura-lending/api'),
-  'karura-staking': require(adaptersDir + '/karura-staking/api'),
-  'acala-lending': require(adaptersDir + '/acala-lending/api'),
-  'acala-staking': require(adaptersDir + '/acala-staking/api'),
-  'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
-  bifrost: require(adaptersDir + '/bifrost/api'),
-  genshiro: require(adaptersDir + '/genshiro/api'),
-  'acala-dex': require(adaptersDir + '/acala-dex/api'),
-  'karura-dex': require(adaptersDir + '/karura-dex/api'),
-}
-
-const bulkyAdapters = {
-  dexpad: require(adaptersDir + '/dexpad/index'),
-  dxsale: require(adaptersDir + '/dxsale/index'),
-  unicrypt: require(adaptersDir + '/unicrypt/index'),
-  deeplock: require(adaptersDir + '/deeplock/index'),
-  pinksale: require(adaptersDir + '/pinksale/index'),
-  synthetix: require(adaptersDir + '/synthetix/api'),
-  'team-finance': require(adaptersDir + '/team-finance/index'),
-  'xdao': require(adaptersDir + '/xdao.js'),
-}
 
 const retries = 2;
-
-// Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
-// Object.keys(projects).forEach(key => delete projects[key])
 
 express()
   .get('/', (req, res) => {
@@ -51,7 +25,7 @@ express()
   .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 function clearData() {
-  chainData = [...Object.keys(projects), ...Object.keys(bulkyAdapters)].reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
+  chainData = Object.keys(chainData).reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
 }
 
 var i = 0
@@ -91,9 +65,43 @@ async function sleepXMinutes(minutes = 10) {
 }
 
 async function getData() {
+  await git.pull()
+
   i++
   if (i === 1200000) i = 0
   if (i % 12) clearData()
+
+  const projects = {
+    'harvest': require(adaptersDir + '/harvest.js'),
+    'hydradex': require(adaptersDir + '/hydradex.js'),
+    'taiga': require(adaptersDir + '/taiga/api'),
+    'tapio': require(adaptersDir + '/tapio/api'),
+    'karura-lending': require(adaptersDir + '/karura-lending/api'),
+    'karura-staking': require(adaptersDir + '/karura-staking/api'),
+    'acala-lending': require(adaptersDir + '/acala-lending/api'),
+    'acala-staking': require(adaptersDir + '/acala-staking/api'),
+    'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
+    bifrost: require(adaptersDir + '/bifrost/api'),
+    genshiro: require(adaptersDir + '/genshiro/api'),
+    'acala-dex': require(adaptersDir + '/acala-dex/api'),
+    'karura-dex': require(adaptersDir + '/karura-dex/api'),
+  }
+
+  const bulkyAdapters = {
+    dexpad: require(adaptersDir + '/dexpad/index'),
+    dxsale: require(adaptersDir + '/dxsale/index'),
+    unicrypt: require(adaptersDir + '/unicrypt/index'),
+    deeplock: require(adaptersDir + '/deeplock/index'),
+    pinksale: require(adaptersDir + '/pinksale/index'),
+    synthetix: require(adaptersDir + '/synthetix/api'),
+    'team-finance': require(adaptersDir + '/team-finance/index'),
+    // 'xdao': require(adaptersDir + '/xdao.js'),
+  }
+
+  // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
+  // Object.keys(projects).forEach(key => delete projects[key])
+
+
   for (const [name, project] of Object.entries(projects)) {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     for (const chain of chains)
