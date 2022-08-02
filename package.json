@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --max-old-space-size=1500 index.js",
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
