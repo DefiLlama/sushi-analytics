@@ -102,8 +102,9 @@ async function getData() {
     genshiro: require(adaptersDir + '/genshiro/api'),
     'acala-dex': require(adaptersDir + '/acala-dex/api'),
     'karura-dex': require(adaptersDir + '/karura-dex/api'),
-    'parallelamm': require(adaptersDir + '/parallelamm/api'),
+    'parallel-staking': require(adaptersDir + '/parallel-staking/api'),
     'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
+    'parallelamm': require(adaptersDir + '/parallelamm/api'),
   }
 
   const bulkyAdapters = {
