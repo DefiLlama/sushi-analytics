@@ -88,6 +88,7 @@ async function getData() {
   if (i % 12) clearData()
 
   const projects = {
+    'sushiswap': require(adaptersDir + '/sushiswap/api.js'),
     'harvest': require(adaptersDir + '/harvest.js'),
     'hydradex': require(adaptersDir + '/hydradex.js'),
     'taiga': require(adaptersDir + '/taiga/api'),
@@ -101,6 +102,8 @@ async function getData() {
     genshiro: require(adaptersDir + '/genshiro/api'),
     'acala-dex': require(adaptersDir + '/acala-dex/api'),
     'karura-dex': require(adaptersDir + '/karura-dex/api'),
+    'parallelamm': require(adaptersDir + '/parallelamm/api'),
+    'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
   }
 
   const bulkyAdapters = {
