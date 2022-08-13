@@ -12,21 +12,21 @@ const retries = 2;
 const server = http.createServer(async (req, res) => {
   //set the request route
   // if (req.url === "/" && req.method === "GET") {
-    //response headers
-    res.writeHead(200, { "Content-Type": "application/json" });
-    //set the response
-    if ((req.query || {}).project) {
-      // if a project and chain name is passed in query, just send over those info instead of all chain data
-      const { project, chain } = req.query
-      let data = chainData[project]
-      if (chain && data)
-        data = { [chain]: data[chain] }
-      return res.write(JSON.stringify({ [project]: data }))
-    } else {
-      res.write(JSON.stringify(chainData))
-    }
-    //end the response
-    res.end();
+  //response headers
+  res.writeHead(200, { "Content-Type": "application/json" });
+  //set the response
+  if ((req.query || {}).project) {
+    // if a project and chain name is passed in query, just send over those info instead of all chain data
+    const { project, chain } = req.query
+    let data = chainData[project]
+    if (chain && data)
+      data = { [chain]: data[chain] }
+    return res.write(JSON.stringify({ [project]: data }))
+  } else {
+    res.write(JSON.stringify(chainData))
+  }
+  //end the response
+  res.end();
   // }
 
   // // If no route present
@@ -41,7 +41,7 @@ server.listen(PORT, () => {
 })
 
 function clearData() {
-  chainData = Object.keys(chainData).reduce((acc, i) => ({ ...acc, [i]: {} }), {}) // reset chain data
+  chainData = {} // reset chain data
 }
 
 var i = 0
@@ -123,16 +123,19 @@ async function getData() {
   // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
   // Object.keys(projects).forEach(key => delete projects[key])
 
+  for (const [name, project] of Object.entries(projects))
+    updateProject(name, project)
 
-  for (const [name, project] of Object.entries(projects)) {
-    const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    for (const chain of chains)
-      await updateData(project[chain].tvl, name, chain)
-  }
+  for (const [name, project] of Object.entries(bulkyAdapters))
+    await updateProject(name, project, true)
 
-  for (const [name, project] of Object.entries(bulkyAdapters)) {
+  async function updateProject(name, project, onlyIfMissing) {
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    for (const chain of chains)
-      await updateData(project[chain].tvl, name, chain, true)
+    for (const chain of chains) {
+      for (const exportKey of Object.keys(project[chain])) {
+        const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
+        await updateData(project[chain].tvl, projectName, chain, onlyIfMissing)
+      }
+    }
   }
 }
