@@ -105,6 +105,8 @@ async function getData() {
     'parallel-staking': require(adaptersDir + '/parallel-staking/api'),
     'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
     'parallelamm': require(adaptersDir + '/parallelamm/api'),
+    'parallel-lending': require(adaptersDir + '/parallel-lending/api'),
+    'parallel-stream': require(adaptersDir + '/parallel-stream/api'),
   }
 
   const bulkyAdapters = {
