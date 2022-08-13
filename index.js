@@ -126,7 +126,7 @@ async function getData() {
   for (const [name, project] of Object.entries(projects))
     updateProject(name, project)
 
-  for (const [name, project] of Object.entries(bulkyAdapters))
+  for (const [name, project] of Object.entries(bulkyAdapters))  
     await updateProject(name, project, true)
 
   async function updateProject(name, project, onlyIfMissing) {
@@ -134,7 +134,7 @@ async function getData() {
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
         const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        await updateData(project[chain].tvl, projectName, chain, onlyIfMissing)
+        await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
       }
     }
   }
