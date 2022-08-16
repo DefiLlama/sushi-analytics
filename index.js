@@ -1,10 +1,18 @@
-const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
-const simpleGit = require('simple-git')
+// const simpleGit = require('simple-git')
 const fs = require('fs')
 const dataFile = 'data.json'
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+  res.json(JSON.parse(fs.readFileSync(dataFile)))
+})
+
+app.listen(PORT)
+
 
 const projects = {
   'harvest': '/harvest.js',
@@ -39,21 +47,10 @@ const bulkyAdapters = {
   // 'xdao': '/xdao.js',
 }
 
-const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 
 const retries = 4;
-const server = http.createServer(async (req, res) => {
-  //response headers
-  res.writeHead(200, { "Content-Type": "application/json" });
-  //set the response
-  res.write(fs.readFileSync(dataFile))
-  //end the response
-  res.end();
-})
 
-server.listen(PORT, () => {
-  console.log(`server started on port: ${PORT}`);
-})
+console.log(`server started on port: ${PORT}`);
 
 function clearData() {
   fs.writeFileSync(dataFile, JSON.stringify({})) // reset chain data
@@ -94,10 +91,11 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   }
 }
 
+// const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 async function getData() {
-  try {
-    await git.pull()
-  } catch (e) { }
+  // try {
+  //   await git.pull()
+  // } catch (e) { }
 
   i++
   if (i === 1200000) i = 0
