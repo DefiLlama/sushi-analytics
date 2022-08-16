@@ -30,11 +30,11 @@ const projects = {
 const bulkyAdapters = {
   unicrypt: require(adaptersDir + '/unicrypt/index'),
   dexpad: require(adaptersDir + '/dexpad/index'),
-  dxsale: require(adaptersDir + '/dxsale/index'),
-  synthetix: require(adaptersDir + '/synthetix/api'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
+  synthetix: require(adaptersDir + '/synthetix/api'),
+  dxsale: require(adaptersDir + '/dxsale/index'),
   // 'xdao': require(adaptersDir + '/xdao.js'),
 }
 
