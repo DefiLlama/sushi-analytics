@@ -87,6 +87,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       chainData[project][chain] = balances
       fs.writeFileSync(dataFile, JSON.stringify(chainData))
       console.log('done', i, project, chain, timestamp)
+      return;
     } catch (e) {
       console.error(project, chain, e)
     }
