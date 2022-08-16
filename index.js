@@ -6,46 +6,44 @@ const adaptersDir = './DefiLlama-Adapters/projects'
 
 
 const projects = {
-  'sushiswap': require(adaptersDir + '/sushiswap/api.js'),
-  'harvest': require(adaptersDir + '/harvest.js'),
-  'hydradex': require(adaptersDir + '/hydradex.js'),
-  'taiga': require(adaptersDir + '/taiga/api'),
-  'tapio': require(adaptersDir + '/tapio/api'),
-  'karura-lending': require(adaptersDir + '/karura-lending/api'),
-  'karura-staking': require(adaptersDir + '/karura-staking/api'),
-  'acala-lending': require(adaptersDir + '/acala-lending/api'),
-  'acala-staking': require(adaptersDir + '/acala-staking/api'),
-  'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
-  bifrost: require(adaptersDir + '/bifrost/api'),
-  genshiro: require(adaptersDir + '/genshiro/api'),
-  'acala-dex': require(adaptersDir + '/acala-dex/api'),
-  'karura-dex': require(adaptersDir + '/karura-dex/api'),
-  'parallel-staking': require(adaptersDir + '/parallel-staking/api'),
-  'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
-  'parallelamm': require(adaptersDir + '/parallelamm/api'),
-  'parallel-lending': require(adaptersDir + '/parallel-lending/api'),
-  'parallel-stream': require(adaptersDir + '/parallel-stream/api'),
+  'harvest': '/harvest.js',
+  'hydradex': '/hydradex.js',
+  'taiga': '/taiga/api',
+  'tapio': '/tapio/api',
+  'karura-lending': '/karura-lending/api',
+  'karura-staking': '/karura-staking/api',
+  'acala-lending': '/acala-lending/api',
+  'acala-staking': '/acala-staking/api',
+  'acala-lcdot': '/acala-lcdot/api',
+  bifrost: '/bifrost/api',
+  genshiro: '/genshiro/api',
+  'acala-dex': '/acala-dex/api',
+  'karura-dex': '/karura-dex/api',
+  'parallel-staking': '/parallel-staking/api',
+  'parallel-crowdloan': '/parallel-crowdloan/api',
+  'parallelamm': '/parallelamm/api',
+  'parallel-lending': '/parallel-lending/api',
+  'parallel-stream': '/parallel-stream/api',
+  'sushiswap': '/sushiswap/api.js',
 }
 
 const bulkyAdapters = {
-  unicrypt: require(adaptersDir + '/unicrypt/index'),
-  dexpad: require(adaptersDir + '/dexpad/index'),
-  deeplock: require(adaptersDir + '/deeplock/index'),
-  pinksale: require(adaptersDir + '/pinksale/index'),
-  'team-finance': require(adaptersDir + '/team-finance/index'),
-  synthetix: require(adaptersDir + '/synthetix/api'),
-  dxsale: require(adaptersDir + '/dxsale/index'),
-  // 'xdao': require(adaptersDir + '/xdao.js'),
+  unicrypt: '/unicrypt/index',
+  dexpad: '/dexpad/index',
+  deeplock: '/deeplock/index',
+  pinksale: '/pinksale/index',
+  'team-finance': '/team-finance/index',
+  synthetix: '/synthetix/api',
+  dxsale: '/dxsale/index',
+  // 'xdao': '/xdao.js',
 }
 
 // const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 
 let chainData = {}
 
-const retries = 2;
+const retries = 4;
 const server = http.createServer(async (req, res) => {
-  //set the request route
-  // if (req.url === "/" && req.method === "GET") {
   //response headers
   res.writeHead(200, { "Content-Type": "application/json" });
   //set the response
@@ -61,13 +59,6 @@ const server = http.createServer(async (req, res) => {
   }
   //end the response
   res.end();
-  // }
-
-  // // If no route present
-  // else {
-  //   res.writeHead(404, { "Content-Type": "application/json" });
-  //   res.end(JSON.stringify({ message: "Route not found" }));
-  // }
 })
 
 server.listen(PORT, () => {
@@ -104,7 +95,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       chainData[project][chain] = balances
       return;
     } catch (e) {
-      console.error(e)
+      console.error(i, project, chain, e)
       // await sleepXMinutes(5)
     }
   }
@@ -123,18 +114,15 @@ async function getData() {
 
   // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
   // Object.keys(projects).forEach(key => delete projects[key])
-  const projectPromises = []
-
 
   for (const [name, project] of Object.entries(projects))
-    projectPromises.push(updateProject(name, project))
-  
-  await Promise.all(projectPromises)
+    await updateProject(name, project)
 
-  for (const [name, project] of Object.entries(bulkyAdapters))  
+  for (const [name, project] of Object.entries(bulkyAdapters))
     await updateProject(name, project, true)
 
   async function updateProject(name, project, onlyIfMissing) {
+    project = require(adaptersDir + project)
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
