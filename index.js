@@ -2,9 +2,43 @@ const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
-const simpleGit = require('simple-git')
+// const simpleGit = require('simple-git')
 
-const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
+
+const projects = {
+  'sushiswap': require(adaptersDir + '/sushiswap/api.js'),
+  'harvest': require(adaptersDir + '/harvest.js'),
+  'hydradex': require(adaptersDir + '/hydradex.js'),
+  'taiga': require(adaptersDir + '/taiga/api'),
+  'tapio': require(adaptersDir + '/tapio/api'),
+  'karura-lending': require(adaptersDir + '/karura-lending/api'),
+  'karura-staking': require(adaptersDir + '/karura-staking/api'),
+  'acala-lending': require(adaptersDir + '/acala-lending/api'),
+  'acala-staking': require(adaptersDir + '/acala-staking/api'),
+  'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
+  bifrost: require(adaptersDir + '/bifrost/api'),
+  genshiro: require(adaptersDir + '/genshiro/api'),
+  'acala-dex': require(adaptersDir + '/acala-dex/api'),
+  'karura-dex': require(adaptersDir + '/karura-dex/api'),
+  'parallel-staking': require(adaptersDir + '/parallel-staking/api'),
+  'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
+  'parallelamm': require(adaptersDir + '/parallelamm/api'),
+  'parallel-lending': require(adaptersDir + '/parallel-lending/api'),
+  'parallel-stream': require(adaptersDir + '/parallel-stream/api'),
+}
+
+const bulkyAdapters = {
+  synthetix: require(adaptersDir + '/synthetix/api'),
+  dexpad: require(adaptersDir + '/dexpad/index'),
+  dxsale: require(adaptersDir + '/dxsale/index'),
+  unicrypt: require(adaptersDir + '/unicrypt/index'),
+  deeplock: require(adaptersDir + '/deeplock/index'),
+  pinksale: require(adaptersDir + '/pinksale/index'),
+  'team-finance': require(adaptersDir + '/team-finance/index'),
+  // 'xdao': require(adaptersDir + '/xdao.js'),
+}
+
+// const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 
 let chainData = {}
 
@@ -81,50 +115,21 @@ async function sleepXMinutes(minutes = 10) {
 }
 
 async function getData() {
-  await git.pull()
+  // await git.pull()
 
   i++
   if (i === 1200000) i = 0
   if (i % 12) clearData()
 
-  const projects = {
-    'sushiswap': require(adaptersDir + '/sushiswap/api.js'),
-    'harvest': require(adaptersDir + '/harvest.js'),
-    'hydradex': require(adaptersDir + '/hydradex.js'),
-    'taiga': require(adaptersDir + '/taiga/api'),
-    'tapio': require(adaptersDir + '/tapio/api'),
-    'karura-lending': require(adaptersDir + '/karura-lending/api'),
-    'karura-staking': require(adaptersDir + '/karura-staking/api'),
-    'acala-lending': require(adaptersDir + '/acala-lending/api'),
-    'acala-staking': require(adaptersDir + '/acala-staking/api'),
-    'acala-lcdot': require(adaptersDir + '/acala-lcdot/api'),
-    bifrost: require(adaptersDir + '/bifrost/api'),
-    genshiro: require(adaptersDir + '/genshiro/api'),
-    'acala-dex': require(adaptersDir + '/acala-dex/api'),
-    'karura-dex': require(adaptersDir + '/karura-dex/api'),
-    'parallel-staking': require(adaptersDir + '/parallel-staking/api'),
-    'parallel-crowdloan': require(adaptersDir + '/parallel-crowdloan/api'),
-    'parallelamm': require(adaptersDir + '/parallelamm/api'),
-    'parallel-lending': require(adaptersDir + '/parallel-lending/api'),
-    'parallel-stream': require(adaptersDir + '/parallel-stream/api'),
-  }
-
-  const bulkyAdapters = {
-    dexpad: require(adaptersDir + '/dexpad/index'),
-    dxsale: require(adaptersDir + '/dxsale/index'),
-    unicrypt: require(adaptersDir + '/unicrypt/index'),
-    deeplock: require(adaptersDir + '/deeplock/index'),
-    pinksale: require(adaptersDir + '/pinksale/index'),
-    synthetix: require(adaptersDir + '/synthetix/api'),
-    'team-finance': require(adaptersDir + '/team-finance/index'),
-    // 'xdao': require(adaptersDir + '/xdao.js'),
-  }
-
   // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
   // Object.keys(projects).forEach(key => delete projects[key])
+  const projectPromises = []
+
 
   for (const [name, project] of Object.entries(projects))
-    updateProject(name, project)
+    projectPromises.push(updateProject(name, project))
+  
+  await Promise.all(projectPromises)
 
   for (const [name, project] of Object.entries(bulkyAdapters))  
     await updateProject(name, project, true)
