@@ -81,10 +81,12 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       return
     }
     try {
+      console.log('start', i, project, chain)
       const balances = await tvlFunction(timestamp, undefined, {})
       if (!chainData[project]) chainData[project] = {}
       chainData[project][chain] = balances
       fs.writeFileSync(dataFile, JSON.stringify(chainData))
+      console.log('done', i, project, chain, timestamp)
     } catch (e) {
       console.error(project, chain, e)
     }
@@ -94,7 +96,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
 async function getData() {
   try {
     await git.pull()
-  } catch (e) {}
+  } catch (e) { }
 
   i++
   if (i === 1200000) i = 0
