@@ -28,10 +28,10 @@ const projects = {
 }
 
 const bulkyAdapters = {
-  synthetix: require(adaptersDir + '/synthetix/api'),
+  unicrypt: require(adaptersDir + '/unicrypt/index'),
   dexpad: require(adaptersDir + '/dexpad/index'),
   dxsale: require(adaptersDir + '/dxsale/index'),
-  unicrypt: require(adaptersDir + '/unicrypt/index'),
+  synthetix: require(adaptersDir + '/synthetix/api'),
   deeplock: require(adaptersDir + '/deeplock/index'),
   pinksale: require(adaptersDir + '/pinksale/index'),
   'team-finance': require(adaptersDir + '/team-finance/index'),
