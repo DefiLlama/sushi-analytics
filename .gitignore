@@ -11,3 +11,4 @@ DefiLlama-Adapters
 # Docker
 Dockerfile
 docker-compose.yml
+data.json

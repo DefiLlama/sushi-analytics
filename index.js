@@ -2,8 +2,9 @@ const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
-// const simpleGit = require('simple-git')
-
+const simpleGit = require('simple-git')
+const fs = require('fs')
+const dataFile = 'data.json'
 
 const projects = {
   'harvest': '/harvest.js',
@@ -29,34 +30,23 @@ const projects = {
 
 const bulkyAdapters = {
   unicrypt: '/unicrypt/index',
+  dxsale: '/dxsale/index',
   dexpad: '/dexpad/index',
   deeplock: '/deeplock/index',
   pinksale: '/pinksale/index',
-  'team-finance': '/team-finance/index',
   synthetix: '/synthetix/api',
-  dxsale: '/dxsale/index',
+  'team-finance': '/team-finance/index',
   // 'xdao': '/xdao.js',
 }
 
-// const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
-
-let chainData = {}
+const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 
 const retries = 4;
 const server = http.createServer(async (req, res) => {
   //response headers
   res.writeHead(200, { "Content-Type": "application/json" });
   //set the response
-  if ((req.query || {}).project) {
-    // if a project and chain name is passed in query, just send over those info instead of all chain data
-    const { project, chain } = req.query
-    let data = chainData[project]
-    if (chain && data)
-      data = { [chain]: data[chain] }
-    return res.write(JSON.stringify({ [project]: data }))
-  } else {
-    res.write(JSON.stringify(chainData))
-  }
+  res.write(fs.readFileSync(dataFile))
   //end the response
   res.end();
 })
@@ -66,19 +56,21 @@ server.listen(PORT, () => {
 })
 
 function clearData() {
-  chainData = {} // reset chain data
+  fs.writeFileSync(dataFile, JSON.stringify({})) // reset chain data
 }
 
-var i = 0
+let i = 0
 
-setInterval(getData, HOUR)
+clearData()
 getData()
+setInterval(getData, HOUR)
 
 function time() {
   return Math.round(Date.now() / 1e3);
 }
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
+  const chainData = JSON.parse(fs.readFileSync(dataFile))
   if (onlyIfMissing) {
     if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
   }
@@ -90,23 +82,19 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
     }
     try {
       const balances = await tvlFunction(timestamp, undefined, {})
-      console.log(i, project, chain, timestamp)
       if (!chainData[project]) chainData[project] = {}
       chainData[project][chain] = balances
-      return;
+      fs.writeFileSync(dataFile, JSON.stringify(chainData))
     } catch (e) {
-      console.error(i, project, chain, e)
-      // await sleepXMinutes(5)
+      console.error(project, chain, e)
     }
   }
 }
 
-async function sleepXMinutes(minutes = 10) {
-  return new Promise((resolve) => setTimeout(resolve, 1000 * 60 * minutes))
-}
-
 async function getData() {
-  // await git.pull()
+  try {
+    await git.pull()
+  } catch (e) {}
 
   i++
   if (i === 1200000) i = 0
