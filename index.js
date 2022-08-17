@@ -1,18 +1,32 @@
+const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const adaptersDir = './DefiLlama-Adapters/projects'
 // const simpleGit = require('simple-git')
 const fs = require('fs')
+const { exec } = require('child_process')
 const dataFile = 'data.json'
-const express = require('express')
-const app = express()
+// const express = require('express')
+// const app = express()
 
-app.get('/', (req, res) => {
-  res.json(JSON.parse(fs.readFileSync(dataFile)))
+// app.get('/', (req, res) => {
+//   res.json(JSON.parse(fs.readFileSync(dataFile)))
+// })
+
+// app.listen(PORT)
+
+const server = http.createServer(async (req, res) => {
+  //response headers
+  res.writeHead(200, { "Content-Type": "application/json" });
+  //set the response
+  res.write(fs.readFileSync(dataFile))
+  //end the response
+  res.end();
 })
 
-app.listen(PORT)
-
+server.listen(PORT, () => {
+  console.log(`server started on port: ${PORT}`);
+})
 
 const projects = {
   'harvest': '/harvest.js',
@@ -47,11 +61,6 @@ const bulkyAdapters = {
   // 'xdao': '/xdao.js',
 }
 
-
-const retries = 4;
-
-console.log(`server started on port: ${PORT}`);
-
 function clearData() {
   fs.writeFileSync(dataFile, JSON.stringify({})) // reset chain data
 }
@@ -61,35 +70,6 @@ let i = 0
 clearData()
 getData()
 setInterval(getData, HOUR)
-
-function time() {
-  return Math.round(Date.now() / 1e3);
-}
-
-async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
-  const chainData = JSON.parse(fs.readFileSync(dataFile))
-  if (onlyIfMissing) {
-    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
-  }
-  const start = time()
-  for (let i = 0; i < retries; i++) {
-    const timestamp = time()
-    if ((timestamp - start) > 45 * 60) {
-      return
-    }
-    try {
-      console.log('start', i, project, chain)
-      const balances = await tvlFunction(timestamp, undefined, {})
-      if (!chainData[project]) chainData[project] = {}
-      chainData[project][chain] = balances
-      fs.writeFileSync(dataFile, JSON.stringify(chainData))
-      console.log('done', i, project, chain, timestamp)
-      return;
-    } catch (e) {
-      console.error(project, chain, e)
-    }
-  }
-}
 
 // const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 async function getData() {
@@ -109,15 +89,11 @@ async function getData() {
 
   for (const [name, project] of Object.entries(bulkyAdapters))
     await updateProject(name, project, true)
+}
 
-  async function updateProject(name, project, onlyIfMissing) {
-    project = require(adaptersDir + project)
-    const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    for (const chain of chains) {
-      for (const exportKey of Object.keys(project[chain])) {
-        const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
-      }
-    }
-  }
+async function updateProject(name, project, onlyIfMissing) {
+  console.log(new Date(), name, project, onlyIfMissing)
+  return new Promise((resolve) => {
+    exec(['node', ' --max-old-space-size=1000', 'updateData.js', name, project, onlyIfMissing].join(' '), resolve)
+  })
 }

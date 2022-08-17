@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=1500 index.js",
+    "start": "node --max-old-space-size=300 index.js",
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
@@ -12,7 +12,6 @@
     "@acala-network/sdk-core": "^4.1.5",
     "@polkadot/api": "^8.8.2",
     "cloudscraper": "^4.6.0",
-    "express": "^4.18.1",
     "request": "^2.88.2",
     "simple-git": "^3.11.0"
   }
