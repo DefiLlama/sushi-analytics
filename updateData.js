@@ -27,12 +27,10 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
       chainData[project][chain] = balances
       fs.writeFileSync(dataFile, JSON.stringify(chainData))
       log('done', i, project, chain, timestamp)
-      process.exit(0)
       return;
     } catch (e) {
       error(project, chain, JSON.stringify(e))
     }
-    process.exit(0)
   }
 }
 
@@ -58,6 +56,7 @@ async function updateProject(name, project, onlyIfMissing) {
     for (const exportKey of Object.keys(project[chain])) {
       const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
       await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
+      process.exit(0)
     }
   }
 }
