@@ -56,9 +56,9 @@ async function updateProject(name, project, onlyIfMissing) {
     for (const exportKey of Object.keys(project[chain])) {
       const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
       await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
-      process.exit(0)
     }
   }
+  process.exit(0)
 }
 
 const [_, _1, name, project, onlyIfMissing] = process.argv
