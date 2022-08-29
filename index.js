@@ -32,6 +32,7 @@ const projects = {
   'harvest': '/harvest.js',
   'hydradex': '/hydradex.js',
   'kintsugi': '/kintsugi/api',
+  'interlay': '/interlay/api',
   'taiga': '/taiga/api',
   'tapio': '/tapio/api',
   'karura-lending': '/karura-lending/api',
