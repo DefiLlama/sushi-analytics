@@ -10,8 +10,10 @@
     "@acala-network/api": "^4.1.5",
     "@acala-network/sdk": "^4.1.5",
     "@acala-network/sdk-core": "^4.1.5",
+    "@hubbleprotocol/kamino-sdk": "^1.0.101",
     "@polkadot/api": "^8.8.2",
     "cloudscraper": "^4.6.0",
+    "decimal.js": "^10.4.0",
     "request": "^2.88.2",
     "simple-git": "^3.11.0"
   }

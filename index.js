@@ -42,7 +42,7 @@ const projects = {
   'acala-lcdot': '/acala-lcdot/api',
   'bifrost-staking': '/bifrost-staking/api',
   'bifrost-dex': '/bifrost-dex/api',
-  genshiro: '/genshiro/api',
+  'genshiro': '/genshiro/api',
   'acala-dex': '/acala-dex/api',
   'karura-dex': '/karura-dex/api',
   'parallel-staking': '/parallel-staking/api',
@@ -50,7 +50,8 @@ const projects = {
   'parallelamm': '/parallelamm/api',
   'parallel-lending': '/parallel-lending/api',
   'parallel-stream': '/parallel-stream/api',
-  'sushiswap': '/sushiswap/api.js',
+  'sushiswap': '/sushiswap/api',
+  'kamino': '/kamino/api',
 }
 
 const bulkyAdapters = {
