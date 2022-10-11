@@ -12,4 +12,5 @@ DefiLlama-Adapters
 Dockerfile
 docker-compose.yml
 data.json
+updateLog.json
 *.log
