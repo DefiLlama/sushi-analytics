@@ -9,6 +9,13 @@ function time() {
   return Math.round(Date.now() / 1e3);
 }
 
+function writeToFile(chain, project, data) {
+  const chainData = JSON.parse(fs.readFileSync(dataFile))
+  if (!chainData[project]) chainData[project] = {}
+  chainData[project][chain] = data
+  fs.writeFileSync(dataFile, JSON.stringify(chainData))
+}
+
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   const chainData = JSON.parse(fs.readFileSync(dataFile))
   if (onlyIfMissing) {
@@ -23,9 +30,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
     try {
       log('start', i, project, chain)
       const balances = await tvlFunction(timestamp, undefined, {})
-      if (!chainData[project]) chainData[project] = {}
-      chainData[project][chain] = balances
-      fs.writeFileSync(dataFile, JSON.stringify(chainData))
+      writeToFile(chain, project, balances)
       log('done', i, project, chain, timestamp)
       return;
     } catch (e) {

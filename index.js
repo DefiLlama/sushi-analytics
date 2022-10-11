@@ -1,19 +1,9 @@
 const http = require("http")
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
-const adaptersDir = './DefiLlama-Adapters/projects'
-// const simpleGit = require('simple-git')
 const fs = require('fs')
 const { exec } = require('child_process')
 const dataFile = 'data.json'
-// const express = require('express')
-// const app = express()
-
-// app.get('/', (req, res) => {
-//   res.json(JSON.parse(fs.readFileSync(dataFile)))
-// })
-
-// app.listen(PORT)
 
 const server = http.createServer(async (req, res) => {
   //response headers
@@ -28,43 +18,60 @@ server.listen(PORT, () => {
   console.log(`server started on port: ${PORT}`);
 })
 
-const projects = {
-  'harvest': '/harvest.js',
-  'hydradex': '/hydradex.js',
-  'kintsugi': '/kintsugi/api',
-  'interlay-btc': '/interlay-btc/api',
-  'interlay-staking': '/interlay-staking/api',
-  'interlay-collateral': '/interlay-collateral/api',
-  'taiga': '/taiga/api',
-  'tapio': '/tapio/api',
-  'karura-lending': '/karura-lending/api',
-  'karura-staking': '/karura-staking/api',
-  'acala-lending': '/acala-lending/api',
-  'acala-staking': '/acala-staking/api',
-  'acala-lcdot': '/acala-lcdot/api',
-  'bifrost-staking': '/bifrost-staking/api',
-  'bifrost-dex': '/bifrost-dex/api',
-  'genshiro': '/genshiro/api',
-  'acala-dex': '/acala-dex/api',
-  'karura-dex': '/karura-dex/api',
-  'parallel-staking': '/parallel-staking/api',
-  'parallel-crowdloan': '/parallel-crowdloan/api',
-  'parallelamm': '/parallelamm/api',
-  'parallel-lending': '/parallel-lending/api',
-  'parallel-stream': '/parallel-stream/api',
-  'sushiswap': '/sushiswap/api',
-  'kamino': '/kamino/api',
-}
-
-const bulkyAdapters = {
-  unicrypt: '/unicrypt/index',
-  dxsale: '/dxsale/index',
-  dexpad: '/dexpad/index',
-  deeplock: '/deeplock/index',
-  pinksale: '/pinksale/index',
-  synthetix: '/synthetix/api',
-  'team-finance': '/team-finance/index',
-  // 'xdao': '/xdao.js',
+const projectsGrouped = {
+  indie: {
+    'harvest': '/harvest.js',
+    'hydradex': '/hydradex.js',
+  // },
+  // bifrost: {
+    'bifrost-staking': '/bifrost-staking/api',
+    'bifrost-dex': '/bifrost-dex/api',
+  // },
+  // genshiro: {
+    'genshiro': '/genshiro/api',
+  // },
+  // indie: {
+    'sushiswap': '/sushiswap/api',
+  // },
+  // interlay: {
+    'interlay-btc': '/interlay-btc/api',
+    'interlay-staking': '/interlay-staking/api',
+    'interlay-collateral': '/interlay-collateral/api',
+    // },
+    // parallel: {
+    'parallel-staking': '/parallel-staking/api',
+    'parallel-crowdloan': '/parallel-crowdloan/api',
+    'parallelamm': '/parallelamm/api',
+    'parallel-lending': '/parallel-lending/api',
+    'parallel-stream': '/parallel-stream/api',
+  // },
+  // acala: {
+    'acala-staking': '/acala-staking/api',
+    'acala-lcdot': '/acala-lcdot/api',
+    'tapio': '/tapio/api',
+    // },
+    // karura: {
+    'karura-lending': '/karura-lending/api',
+    'karura-staking': '/karura-staking/api',
+    'taiga': '/taiga/api',
+    // },
+    // kintsugi: {
+    'kintsugi': '/kintsugi/api',
+  },
+  bulky: {
+    'kamino': '/kamino/api',
+    'xdao': '/xdao/apiCache',
+    unicrypt: '/unicrypt/apiCache',
+    dxsale: '/dxsale/apiCache',
+    dexpad: '/dexpad/apiCache',
+    'acala-lending': '/acala-lending/api',
+    'acala-dex': '/acala-dex/api',
+    'karura-dex': '/karura-dex/api',
+    deeplock: '/deeplock/apiCache',
+    pinksale: '/pinksale/apiCache',
+    'team-finance': '/team-finance/apiCache',
+    synthetix: '/synthetix/apiCache',
+  },
 }
 
 function clearData() {
@@ -77,29 +84,28 @@ clearData()
 getData()
 setInterval(getData, HOUR)
 
-// const git = simpleGit({ baseDir: './DefiLlama-Adapters' })
 async function getData() {
-  // try {
-  //   await git.pull()
-  // } catch (e) { }
-
   i++
   if (i === 1200000) i = 0
   if (i % 12) clearData()
 
-  // Object.keys(bulkyAdapters).forEach(key => delete bulkyAdapters[key])
-  // Object.keys(projects).forEach(key => delete projects[key])
 
-  for (const [name, project] of Object.entries(projects))
-    await updateProject(name, project)
+  for (const item of Object.entries(projectsGrouped)) {
+    await updateProjects(item)
+  }
+}
 
-  for (const [name, project] of Object.entries(bulkyAdapters))
-    await updateProject(name, project, true)
+async function updateProjects([group, projects]) {
+  for (const [name, project] of Object.entries(projects)) {
+    await updateProject(name, project, group === 'bulky')
+    console.log(new Date(), '[post-update]', name, project)
+  }
 }
 
 async function updateProject(name, project, onlyIfMissing) {
-  console.log(new Date(), name, project, onlyIfMissing)
+  console.log(new Date(), '[pre-update]', name, project, onlyIfMissing)
   return new Promise((resolve) => {
+    // ?? improve but batching here, so single connection object is made per polka chain
     exec(['node', ' --max-old-space-size=1000', 'updateData.js', name, project, onlyIfMissing].join(' '), resolve)
   })
 }
