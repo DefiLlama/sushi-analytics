@@ -28,7 +28,7 @@ const projectsGrouped = {
     'bifrost-dex': '/bifrost-dex/api',
   // },
   // genshiro: {
-    'genshiro': '/genshiro/api',
+    // 'genshiro': '/genshiro/api',
   // },
   // indie: {
     'sushiswap': '/sushiswap/api',
