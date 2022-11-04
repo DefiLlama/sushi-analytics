@@ -4,9 +4,9 @@ const fs = require('fs')
 const dataFile = 'data.json'
 const logFile = 'debug.log'
 const errorFile = 'error.log'
-const updateLog = 'updateLog.json'
 const chainData = JSON.parse(fs.readFileSync(dataFile))
-const lastUpdateLog = JSON.parse(fs.readFileSync(updateLog))
+if (!chainData.lastUpdateLog) chainData.lastUpdateLog = {}
+const lastUpdateLog = chainData.lastUpdateLog
 const HOUR = 3600 * 1e3
 const refreshFrequency = 12 * HOUR
 
@@ -19,8 +19,11 @@ function writeToFile(chain, project, data) {
     if (!chainData[project]) chainData[project] = {}
     chainData[project][chain] = data
   }
+  chainData.lastUpdateLogStr = {}
+  for (const [key, date] of Object.entries(lastUpdateLog))
+    chainData.lastUpdateLogStr[key] = (new Date(date)).toISOString()
+
   fs.writeFileSync(dataFile, JSON.stringify(chainData))
-  fs.writeFileSync(updateLog, JSON.stringify(lastUpdateLog))
 }
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
@@ -55,14 +58,20 @@ async function updateProject(name, project, onlyIfMissing) {
   try {
 
     const timeSinceLastUpdate = Date.now() - (lastUpdateLog[name] || 0)
-    if (timeSinceLastUpdate > refreshFrequency || !onlyIfMissing) {
-      delete chainData[project]
-      writeToFile()
-    }
 
     project = require(adaptersDir + project)
 
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
+    for (const chain of chains) {
+      for (const exportKey of Object.keys(project[chain])) {
+        const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
+        if (timeSinceLastUpdate > refreshFrequency || !onlyIfMissing) {
+          delete chainData[projectName]
+          writeToFile()
+        }
+      }
+    }
+
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
         const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
