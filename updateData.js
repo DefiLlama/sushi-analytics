@@ -28,13 +28,10 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
     if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
   }
   const timestamp = time()
-  try {
-    log('[start]',project, chain)
-    const balances = await tvlFunction(timestamp, undefined, {})
-    writeToFile(chain, project, balances)
-    log('[done]',project, chain, 'time taken: ', time() - timestamp)
-  } catch (e) {
-  }
+  log('[start]', project, chain)
+  const balances = await tvlFunction(timestamp, undefined, {})
+  writeToFile(chain, project, balances)
+  log('[done]', project, chain, 'time taken: ', time() - timestamp)
 }
 
 function log(...args) {
@@ -90,7 +87,7 @@ async function updateProjectGroup(group, onlyIfMissing) {
 async function main() {
   for (const projectGroups of hourlyRun)
     await Promise.all(projectGroups.map(updateProjectGroup))
-  
+
   return updateProjectGroup(bulky, true)
 }
 

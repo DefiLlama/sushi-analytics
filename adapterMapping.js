@@ -57,5 +57,6 @@ module.exports = {
     pinksale: '/pinksale/apiCache',
     'team-finance': '/team-finance/apiCache',
     synthetix: '/synthetix/apiCache',
+    '1inch': '/1inch/apiCache',
   },
 }
