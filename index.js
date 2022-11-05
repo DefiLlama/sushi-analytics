@@ -19,17 +19,20 @@ server.listen(PORT, () => {
   console.log(`server started on port: ${PORT}`);
 })
 
-// initialize ata files
-fs.writeFileSync(dataFile, JSON.stringify({}))
-fs.writeFileSync(updateLog, JSON.stringify({}))
-
+let i = 0
 updateData()
 setInterval(updateData, HOUR)
 
-async function updateData(){
-  console.log(new Date(), '[pre-update all]')
+function clearData() {
+  fs.writeFileSync(dataFile, JSON.stringify({}))
+}
+
+async function updateData() {
+  if (i % 12 === 0) clearData()
+  i++
+  console.log(new Date(), '[pre-update all]', i)
   await new Promise((resolve) => {
     exec(['node', ' --max-old-space-size=1800', 'updateData.js'].join(' '), resolve)
   })
-  console.log(new Date(), '[post-update all]')
+  console.log(new Date(), '[post-update all]', i)
 }

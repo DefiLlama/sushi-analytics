@@ -5,10 +5,6 @@ const dataFile = 'data.json'
 const logFile = 'debug.log'
 const errorFile = 'error.log'
 const chainData = JSON.parse(fs.readFileSync(dataFile))
-if (!chainData.lastUpdateLog) chainData.lastUpdateLog = {}
-const lastUpdateLog = chainData.lastUpdateLog
-const HOUR = 3600 * 1e3
-const refreshFrequency = 12 * HOUR
 
 function time() {
   return Math.round(Date.now() / 1e3);
@@ -19,9 +15,6 @@ function writeToFile(chain, project, data) {
     if (!chainData[project]) chainData[project] = {}
     chainData[project][chain] = data
   }
-  chainData.lastUpdateLogStr = {}
-  for (const [key, date] of Object.entries(lastUpdateLog))
-    chainData.lastUpdateLogStr[key] = (new Date(date)).toISOString()
 
   fs.writeFileSync(dataFile, JSON.stringify(chainData))
 }
@@ -38,14 +31,12 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
 }
 
 function log(...args) {
-  console.log(...args)
   fs.appendFileSync(logFile, '\n')
   fs.appendFileSync(logFile, [getDate(), ...args].join(' '))
 }
 
 
 function error(...args) {
-  console.log('[error]', ...args)
   fs.appendFileSync(errorFile, '\n')
   fs.appendFileSync(errorFile, [getDate(), ...args].join(' '))
 }
@@ -57,20 +48,8 @@ function getDate() {
 async function updateProject(name, project, onlyIfMissing) {
   try {
 
-    const timeSinceLastUpdate = Date.now() - (lastUpdateLog[name] || 0)
-
     project = require(adaptersDir + project)
-
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    for (const chain of chains) {
-      for (const exportKey of Object.keys(project[chain])) {
-        const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        if (timeSinceLastUpdate > refreshFrequency || !onlyIfMissing) {
-          delete chainData[projectName]
-          writeToFile()
-        }
-      }
-    }
 
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
@@ -79,12 +58,9 @@ async function updateProject(name, project, onlyIfMissing) {
       }
     }
 
-    lastUpdateLog[name] = Date.now()
     writeToFile()
-
   } catch (e) {
     error(project, JSON.stringify(e))
-    delete chainData[project]
   }
 }
 
