@@ -27,9 +27,9 @@ function writeToFile(chain, project, data) {
 }
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
-  // if (onlyIfMissing) {
-  //   if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
-  // }
+  if (onlyIfMissing) {
+    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
+  }
   const timestamp = time()
   log('[start]', project, chain)
   const balances = await tvlFunction(timestamp, undefined, {})
@@ -55,16 +55,27 @@ function getDate() {
 }
 
 async function updateProject(name, project, onlyIfMissing) {
-  project = require(adaptersDir + project)
-  const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-
   try {
-    deleteProject(name, project, chains)
+
+    const timeSinceLastUpdate = Date.now() - (lastUpdateLog[name] || 0)
+
+    project = require(adaptersDir + project)
+
+    const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
+    for (const chain of chains) {
+      for (const exportKey of Object.keys(project[chain])) {
+        const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
+        if (timeSinceLastUpdate > refreshFrequency || !onlyIfMissing) {
+          delete chainData[projectName]
+          writeToFile()
+        }
+      }
+    }
 
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
         const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        await updateData(project[chain][exportKey], projectName, chain)
+        await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
       }
     }
 
@@ -73,17 +84,7 @@ async function updateProject(name, project, onlyIfMissing) {
 
   } catch (e) {
     error(project, JSON.stringify(e))
-    deleteProject(name, project, chains)
-  }
-}
-
-function deleteProject(name, project, chains) {
-  for (const chain of chains) {
-    for (const exportKey of Object.keys(project[chain])) {
-      const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-      delete chainData[projectName]
-      writeToFile()
-    }
+    delete chainData[project]
   }
 }
 
