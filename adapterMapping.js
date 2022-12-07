@@ -9,6 +9,7 @@ module.exports = {
       {
         'bifrost-staking': '/bifrost-staking/api',
         'bifrost-dex': '/bifrost-dex/api',
+        'bifrost-liquid-crowdloan': '/bifrost-liquid-crowdloan/api',
       },
       {
         'genshiro': '/genshiro/api',
