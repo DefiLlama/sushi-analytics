@@ -50,7 +50,7 @@ module.exports = {
     }],
   ],
   bulky: {
-    'kamino': '/kamino/api',
+    // 'kamino': '/kamino/api',
     unicrypt: '/unicrypt/apiCache',
     dxsale: '/dxsale/apiCache',
     dexpad: '/dexpad/apiCache',

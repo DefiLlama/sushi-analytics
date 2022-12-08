@@ -46,6 +46,7 @@ function getDate() {
 }
 
 async function updateProject(name, project, onlyIfMissing) {
+  const projectStr = project
   try {
 
     project = require(adaptersDir + project)
@@ -60,7 +61,7 @@ async function updateProject(name, project, onlyIfMissing) {
 
     writeToFile()
   } catch (e) {
-    error(project, JSON.stringify(e))
+    error(name, projectStr, JSON.stringify(e))
   }
 }
 
