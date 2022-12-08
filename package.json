@@ -17,6 +17,7 @@
     "cloudscraper": "^4.6.0",
     "decimal.js": "^10.4.0",
     "request": "^2.88.2",
-    "simple-git": "^3.11.0"
+    "simple-git": "^3.11.0",
+    "starknet": "^4.9.0"
   }
 }
