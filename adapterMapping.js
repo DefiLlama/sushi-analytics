@@ -51,7 +51,7 @@ module.exports = {
   ],
   bulky: {
     dexpad: '/dexpad/apiCache',
-    dxsale: '/dxsale/apiCache',
+    // dxsale: '/dxsale/apiCache',
     unicrypt: '/unicrypt/apiCache',
     deeplock: '/deeplock/apiCache',
     pinksale: '/pinksale/apiCache',
