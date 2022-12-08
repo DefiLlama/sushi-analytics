@@ -50,15 +50,15 @@ module.exports = {
     }],
   ],
   bulky: {
-    // 'kamino': '/kamino/api',
-    unicrypt: '/unicrypt/apiCache',
-    // dxsale: '/dxsale/apiCache',
     dexpad: '/dexpad/apiCache',
+    dxsale: '/dxsale/apiCache',
+    unicrypt: '/unicrypt/apiCache',
     deeplock: '/deeplock/apiCache',
     pinksale: '/pinksale/apiCache',
     'team-finance': '/team-finance/apiCache',
     synthetix: '/synthetix/apiCache',
     '1inch': '/1inch/apiCache',
+    // 'kamino': '/kamino/api',
     'dogeswap-org': '/dogeswap-org/api',
   },
 }
