@@ -51,7 +51,6 @@ module.exports = {
   ],
   bulky: {
     'kamino': '/kamino/api',
-    // 'xdao': '/xdao/apiCache',
     unicrypt: '/unicrypt/apiCache',
     dxsale: '/dxsale/apiCache',
     dexpad: '/dexpad/apiCache',
@@ -60,5 +59,6 @@ module.exports = {
     'team-finance': '/team-finance/apiCache',
     synthetix: '/synthetix/apiCache',
     '1inch': '/1inch/apiCache',
+    'dogeswap-org': '/dogeswap-org/api',
   },
 }
