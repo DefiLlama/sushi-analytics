@@ -5,6 +5,7 @@ module.exports = {
         'harvest': '/harvest.js',
         'hydradex': '/hydradex.js',
         'jediswap': '/jediswap/api',
+        '10kswap': '/10kswap/api',
         'injective-orderbook': '/injective-orderbook/api',
       },
       {
