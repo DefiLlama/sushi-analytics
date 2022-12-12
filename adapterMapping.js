@@ -49,14 +49,14 @@ module.exports = {
     ],
   ],
   bulky: {
-    unicrypt: '/unicrypt/apiCache',
+    'kamino': '/kamino/api',
     deeplock: '/deeplock/apiCache',
     pinksale: '/pinksale/apiCache',
     'team-finance': '/team-finance/apiCache',
     synthetix: '/synthetix/apiCache',
     '1inch': '/1inch/apiCache',
-    'kamino': '/kamino/api',
     dxsale: '/dxsale/apiCache',
     'dogeswap-org': '/dogeswap-org/api',
+    unicrypt: '/unicrypt/apiCache',
   },
 }
