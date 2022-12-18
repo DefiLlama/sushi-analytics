@@ -6,6 +6,7 @@ module.exports = {
         'hydradex': '/hydradex.js',
         'jediswap': '/jediswap/api',
         '10kswap': '/10kswap/api',
+        'myswap': '/myswap/api',
         'injective-orderbook': '/injective-orderbook/api',
       },
       {
