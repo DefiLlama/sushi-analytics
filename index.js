@@ -31,7 +31,7 @@ function clearData() {
 
 
 async function updateData() {
-  if (i % 12 === 0) clearData()
+  if (i % 16 === 0) clearData()
   i++
   console.log(new Date(), '[pre-update all]', i)
   await new Promise((resolve, reject) => {

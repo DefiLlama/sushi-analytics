@@ -51,13 +51,16 @@ async function updateProject(name, project, onlyIfMissing) {
 
     project = require(adaptersDir + project)
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
+    let promises = []
 
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
         const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
+        promises.push(updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)) 
       }
     }
+
+    await Promise.all(promises)
 
     writeToFile()
   } catch (e) {
