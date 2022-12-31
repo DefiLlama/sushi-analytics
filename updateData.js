@@ -56,11 +56,12 @@ async function updateProject(name, project, onlyIfMissing) {
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
         const projectName = exportKey === 'tvl' ? name : `${name}-${exportKey}`
-        promises.push(updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)) 
+        await updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)
+        // promises.push(updateData(project[chain][exportKey], projectName, chain, onlyIfMissing)) 
       }
     }
 
-    await Promise.all(promises)
+    // await Promise.all(promises)
 
     writeToFile()
   } catch (e) {
