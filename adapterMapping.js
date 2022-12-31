@@ -11,36 +11,24 @@ module.exports = {
         'bifrost-staking': '/bifrost-staking/api',
         'bifrost-dex': '/bifrost-dex/api',
         'bifrost-liquid-crowdloan': '/bifrost-liquid-crowdloan/api',
-      },
-      {
         'genshiro': '/genshiro/api',
         'interlay-btc': '/interlay-btc/api',
         'interlay-staking': '/interlay-staking/api',
         'interlay-collateral': '/interlay-collateral/api',
-      },
-    ],
-    [
-      {
         'parallel-staking': '/parallel-staking/api',
         'parallel-crowdloan': '/parallel-crowdloan/api',
         'parallelamm': '/parallelamm/api',
         'parallel-lending': '/parallel-lending/api',
         'parallel-stream': '/parallel-stream/api',
-      },
-      {
         'acala-staking': '/acala-staking/api',
         'acala-lcdot': '/acala-lcdot/api',
         'tapio': '/tapio/api',
         'acala-lending': '/acala-lending/api',
         'acala-dex': '/acala-dex/api',
-      },
-      {
         'karura-lending': '/karura-lending/api',
         'karura-staking': '/karura-staking/api',
         'taiga': '/taiga/api',
         'karura-dex': '/karura-dex/api',
-      },
-      {
         'kintsugi': '/kintsugi/api',
       },
     ],
