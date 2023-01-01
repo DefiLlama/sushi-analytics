@@ -51,7 +51,7 @@ async function updateProject(name, project, onlyIfMissing) {
 
     project = require(adaptersDir + project)
     const chains = Object.entries(project).filter(c => c[1]?.tvl !== undefined).map(c => c[0])
-    let promises = []
+    // let promises = []
 
     for (const chain of chains) {
       for (const exportKey of Object.keys(project[chain])) {
@@ -65,6 +65,7 @@ async function updateProject(name, project, onlyIfMissing) {
 
     writeToFile()
   } catch (e) {
+    console.error(e)
     error(name, projectStr, JSON.stringify(e))
   }
 }
@@ -78,7 +79,8 @@ async function main() {
   for (const projectGroups of hourlyRun)
     await Promise.all(projectGroups.map(updateProjectGroup))
 
-  return updateProjectGroup(bulky, true)
+  for (const projectGroups of bulky)
+    await Promise.all(projectGroups.map(updateProjectGroup))
 }
 
 main().then(() => {
