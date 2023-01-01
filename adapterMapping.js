@@ -51,20 +51,16 @@ module.exports = {
   ],
   bulky: [
     [{
+      '1inch': '/1inch/apiCache',
+      'izumi': '/izumi/api',
       dxsale: '/dxsale/apiCache',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
       pinksale: '/pinksale/apiCache',
       'team-finance': '/team-finance/apiCache',
-    }],
-    [{
-      'dogeswap-org': '/dogeswap-org/api',
       synthetix: '/synthetix/apiCache',
-    }],
-    [{
-      '1inch': '/1inch/apiCache',
-      // 'defi-basket': '/defi-basket/api',
       'kamino': '/kamino/api',
+      'dogeswap-org': '/dogeswap-org/api',
     }],
   ],
 }
