@@ -63,7 +63,7 @@ module.exports = {
     }],
     [{
       '1inch': '/1inch/apiCache',
-      'defi-basket': '/defi-basket/api',
+      // 'defi-basket': '/defi-basket/api',
       'kamino': '/kamino/api',
     }],
   ],
