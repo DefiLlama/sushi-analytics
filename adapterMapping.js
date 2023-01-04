@@ -53,14 +53,14 @@ module.exports = {
     [{
       '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
-      dxsale: '/dxsale/apiCache',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
       pinksale: '/pinksale/apiCache',
       'team-finance': '/team-finance/apiCache',
       synthetix: '/synthetix/apiCache',
-      'kamino': '/kamino/api',
       'dogeswap-org': '/dogeswap-org/api',
+      'kamino': '/kamino/api',
+      dxsale: '/dxsale/apiCache',
     }],
   ],
 }
