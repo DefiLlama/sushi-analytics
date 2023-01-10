@@ -51,6 +51,7 @@ module.exports = {
   ],
   bulky: [
     [{
+      'kamino': '/kamino/api',
       '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
       unicrypt: '/unicrypt/apiCache',
@@ -59,7 +60,6 @@ module.exports = {
       'team-finance': '/team-finance/apiCache',
       synthetix: '/synthetix/apiCache',
       'dogeswap-org': '/dogeswap-org/api',
-      'kamino': '/kamino/api',
       dxsale: '/dxsale/apiCache',
     }],
   ],

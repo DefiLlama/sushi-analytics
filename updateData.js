@@ -76,8 +76,9 @@ async function updateProjectGroup(group, onlyIfMissing) {
 }
 
 async function main() {
-  for (const projectGroups of hourlyRun)
-    await Promise.all(projectGroups.map(updateProjectGroup))
+  if (!process.env.RUN_ONLY_BULKY)
+    for (const projectGroups of hourlyRun)
+      await Promise.all(projectGroups.map(updateProjectGroup))
 
   for (const projectGroups of bulky)
     await Promise.all(projectGroups.map(updateProjectGroup))
