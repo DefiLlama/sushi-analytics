@@ -4,9 +4,9 @@ module.exports = {
       {
         'harvest': '/harvest.js',
         'hydradex': '/hydradex.js',
-        'jediswap': '/jediswap/api',
-        '10kswap': '/10kswap/api',
-        'myswap': '/myswap/api',
+        // 'jediswap': '/jediswap/api',
+        // '10kswap': '/10kswap/api',
+        // 'myswap': '/myswap/api',
         'injective-orderbook': '/injective-orderbook/api',
       },
       {
@@ -51,6 +51,7 @@ module.exports = {
   ],
   bulky: [
     [{
+      'vitcswap': '/vitcswap/api',
       'kamino': '/kamino/api',
       '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
