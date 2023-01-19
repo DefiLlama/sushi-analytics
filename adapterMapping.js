@@ -52,15 +52,16 @@ module.exports = {
   bulky: [
     [{
       'vitcswap': '/vitcswap/api',
+      'defichain-loans': '/defichain-loans',
       'kamino': '/kamino/api',
       '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
+      'dogeswap-org': '/dogeswap-org/api',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
       pinksale: '/pinksale/apiCache',
       'team-finance': '/team-finance/apiCache',
       synthetix: '/synthetix/apiCache',
-      'dogeswap-org': '/dogeswap-org/api',
       dxsale: '/dxsale/apiCache',
     }],
   ],
