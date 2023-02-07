@@ -5,7 +5,14 @@ const fs = require('fs')
 const dataFile = 'data.json'
 const logFile = 'debug.log'
 const errorFile = 'error.log'
-const chainData = JSON.parse(fs.readFileSync(dataFile))
+let chainData
+
+try {
+  chainData = JSON.parse(fs.readFileSync(dataFile))
+} catch(e) {
+  chainData = {}
+}
+
 
 function time() {
   return Math.round(Date.now() / 1e3);
