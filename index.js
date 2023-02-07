@@ -19,7 +19,7 @@ server.listen(PORT, () => {
   console.log(`server started on port: ${PORT}`);
 })
 
-let i = 0
+let i = 1
 updateData()
 setInterval(updateData, HOUR)
 

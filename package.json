@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --max-old-space-size=300 index.js",
+    "bulky": "RUN_ONLY_BULKY=true node --max-old-space-size=2000 index.js",
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
