@@ -4,9 +4,6 @@ module.exports = {
       {
         'harvest': '/harvest.js',
         'hydradex': '/hydradex.js',
-        // 'jediswap': '/jediswap/api',
-        // '10kswap': '/10kswap/api',
-        // 'myswap': '/myswap/api',
         'injective-orderbook': '/injective-orderbook/api',
       },
       {
@@ -56,13 +53,15 @@ module.exports = {
       'kamino': '/kamino/api',
       '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
-      'dogeswap-org': '/dogeswap-org/api',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
       pinksale: '/pinksale/apiCache',
       'team-finance': '/team-finance/apiCache',
       synthetix: '/synthetix/apiCache',
       dxsale: '/dxsale/apiCache',
+    }, {
+      'yodeswap': '/yodeswap/api',
+      'dogeswap-org': '/dogeswap-org/api',
     }],
   ],
 }
