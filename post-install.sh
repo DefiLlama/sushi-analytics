@@ -7,4 +7,4 @@ git stash
 git checkout main
 git pull
 npm i
-npm update @defillama/sdk @hubbleprotocol/kamino-sdk
+npm update @defillama/sdk

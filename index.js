@@ -2,7 +2,7 @@ const http = require('http')
 const PORT = process.env.PORT || 5000
 const HOUR = 3600 * 1e3
 const fs = require('fs')
-const { exec, spawn } = require('child_process')
+const { execSync, spawn } = require('child_process')
 const dataFile = 'data.json'
 const updateLog = 'updateLog.json'
 
@@ -33,6 +33,7 @@ function clearData() {
 async function updateData() {
   if (i % 16 === 0) clearData()
   i++
+  execSync('bash post-install.sh')
   console.log(new Date(), '[pre-update all]', i)
   await new Promise((resolve, reject) => {
     const updateProcess = spawn('node', ['--max-old-space-size=1800', 'updateData.js']);
