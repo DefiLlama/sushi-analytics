@@ -48,6 +48,7 @@ module.exports = {
   ],
   bulky: [
     [{
+      'quantumx-network': '/quantumx-network/index',
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
       'kamino': '/kamino/api',
@@ -59,7 +60,6 @@ module.exports = {
       'team-finance': '/team-finance/apiCache',
       synthetix: '/synthetix/apiCache',
       dxsale: '/dxsale/apiCache',
-    }, {
       'yodeswap': '/yodeswap/api',
       'dogeswap-org': '/dogeswap-org/api',
     }],

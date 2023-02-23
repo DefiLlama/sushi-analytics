@@ -9,7 +9,7 @@ let chainData
 
 try {
   chainData = JSON.parse(fs.readFileSync(dataFile))
-} catch(e) {
+} catch (e) {
   chainData = {}
 }
 
@@ -33,7 +33,7 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   }
   const timestamp = time()
   log('[start]', project, chain)
-  const api = new sdk.ChainApi({ chain, timestamp: Math.floor(new Date()/1e3), })
+  const api = new sdk.ChainApi({ chain, timestamp: Math.floor(new Date() / 1e3), })
   const balances = await tvlFunction(timestamp, undefined, {}, { api, chain, storedKey: project })
   writeToFile(chain, project, balances)
   log('[done]', project, chain, 'time taken: ', time() - timestamp)
@@ -85,9 +85,19 @@ async function updateProjectGroup(group, onlyIfMissing) {
 }
 
 async function main() {
-  if (!process.env.RUN_ONLY_BULKY)
-    for (const projectGroups of hourlyRun)
-      await Promise.all(projectGroups.map(updateProjectGroup))
+  const adapterKey = process.env.RUN_ONLY
+  if (adapterKey) {
+    const group = {};
+    ([...hourlyRun, ...bulky]).flat().forEach(i => {
+      if (i[adapterKey]) group[adapterKey] = i[adapterKey]
+    })
+
+    if (!group[adapterKey]) throw new Error('Adapter mapping not found!')
+    return updateProjectGroup(group)
+  }
+
+  for (const projectGroups of hourlyRun)
+    await Promise.all(projectGroups.map(updateProjectGroup))
 
   for (const projectGroups of bulky)
     await Promise.all(projectGroups.map(group => updateProjectGroup(group, true)))
