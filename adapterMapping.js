@@ -13,6 +13,7 @@ module.exports = {
       },
       {
         'genshiro': '/genshiro/api',
+        'streamflow': '/streamflow/index',
       },
       {
         'interlay-btc': '/interlay-btc/api',
