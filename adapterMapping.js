@@ -12,7 +12,7 @@ module.exports = {
         'bifrost-liquid-crowdloan': '/bifrost-liquid-crowdloan/api',
       },
       {
-        'genshiro': '/genshiro/api',
+        // 'genshiro': '/genshiro/api',
         // 'streamflow': '/streamflow/index',
       },
       {
