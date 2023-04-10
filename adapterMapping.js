@@ -7,9 +7,9 @@ module.exports = {
         'injective-orderbook': '/injective-orderbook/api',
       },
       {
-        // 'bifrost-staking': '/bifrost-staking/api',
-        // 'bifrost-dex': '/bifrost-dex/api',
-        // 'bifrost-liquid-crowdloan': '/bifrost-liquid-crowdloan/api',
+        'bifrost-staking': '/bifrost-staking/api',
+        'bifrost-dex': '/bifrost-dex/api',
+        'bifrost-liquid-crowdloan': '/bifrost-liquid-crowdloan/api',
       },
       {
         // 'genshiro': '/genshiro/api',
