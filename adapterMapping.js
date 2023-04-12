@@ -13,6 +13,7 @@ module.exports = {
       },
       {
         // 'genshiro': '/genshiro/api',
+        'equilibrium': '/equilibrium/api',
         // 'streamflow': '/streamflow/index',
       },
       {

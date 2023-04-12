@@ -16,7 +16,7 @@
     "@hubbleprotocol/kamino-sdk": "^1.0.101",
     "@injectivelabs/networks": "^1.0.37",
     "@injectivelabs/sdk-ts": "^1.0.209",
-    "@polkadot/api": "^8.8.2",
+    "@polkadot/api": "^10.2.1",
     "@raydium-io/raydium-sdk": "^1.3.0-beta.8",
     "cloudscraper": "^4.6.0",
     "decimal.js": "^10.4.0",
