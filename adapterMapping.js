@@ -55,7 +55,7 @@ module.exports = {
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
       'kamino': '/kamino/api',
-      '1inch': '/1inch/apiCache',
+      // '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
