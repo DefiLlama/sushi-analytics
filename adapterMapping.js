@@ -31,7 +31,7 @@ module.exports = {
         'parallel-lending': '/parallel-lending/api',
         'parallel-stream': '/parallel-stream/api',
       },
-      {
+      /* {
         'acala-staking': '/acala-staking/api',
         'acala-lcdot': '/acala-lcdot/api',
         'tapio': '/tapio/api',
@@ -43,7 +43,7 @@ module.exports = {
         'karura-staking': '/karura-staking/api',
         'taiga': '/taiga/api',
         'karura-dex': '/karura-dex/api',
-      },
+      }, */
       {
         'kintsugi': '/kintsugi/api',
       },
