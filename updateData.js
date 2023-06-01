@@ -108,3 +108,14 @@ main().then(() => {
   writeToFile()
   process.exit(0)
 })
+
+// Function to exit the script
+function exitScript() {
+  console.log('Exiting script...');
+  process.exit(0); // Exit with a status code of 0
+}
+
+// Schedule the script to exit after 50 minutes
+const durationInMinutes = 50;
+const durationInMilliseconds = durationInMinutes * 60 * 1000;
+setTimeout(exitScript, durationInMilliseconds);

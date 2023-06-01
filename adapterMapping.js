@@ -14,7 +14,6 @@ module.exports = {
       },
       {
         // 'genshiro': '/genshiro/api',
-        // 'equilibrium': '/equilibrium/api',
         // 'streamflow': '/streamflow/index',
       },
       {
@@ -31,19 +30,17 @@ module.exports = {
         'parallel-lending': '/parallel-lending/api',
         'parallel-stream': '/parallel-stream/api',
       },
-/*       {
-        'acala-staking': '/acala-staking/api',
-        'acala-lcdot': '/acala-lcdot/api',
-        'tapio': '/tapio/api',
-        'acala-lending': '/acala-lending/api',
-        'acala-dex': '/acala-dex/api',
-      },
-      {
-        'karura-lending': '/karura-lending/api',
-        'karura-staking': '/karura-staking/api',
-        'taiga': '/taiga/api',
-        'karura-dex': '/karura-dex/api',
-      }, */
+      /*       {
+              'acala-staking': '/acala-staking/api',
+              'acala-lcdot': '/acala-lcdot/api',
+              'acala-lending': '/acala-lending/api',
+              'acala-dex': '/acala-dex/api',
+            },
+            {
+              'karura-lending': '/karura-lending/api',
+              'karura-staking': '/karura-staking/api',
+              'karura-dex': '/karura-dex/api',
+            }, */
       {
         'kintsugi': '/kintsugi/api',
       },
@@ -65,6 +62,11 @@ module.exports = {
       dxsale: '/dxsale/apiCache',
       'yodeswap': '/yodeswap/api',
       'dogeswap-org': '/dogeswap-org/api',
+
+      // breaks often
+      'taiga': '/taiga/api',
+      'tapio': '/tapio/api',
+      'equilibrium': '/equilibrium/api',
     }],
   ],
 }
