@@ -2,7 +2,6 @@ module.exports = {
   hourlyRun: [
     [
       {
-        'liqwid': '/liqwid/index.js',
         'harvest': '/harvest.js',
         'hydradex': '/hydradex.js',
         'hydradex-v3': '/hydradex-v3/index.js',
