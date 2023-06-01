@@ -2,6 +2,7 @@ module.exports = {
   hourlyRun: [
     [
       {
+        'liqwid': '/liqwid/index.js',
         'harvest': '/harvest.js',
         'hydradex': '/hydradex.js',
         'hydradex-v3': '/hydradex-v3/index.js',
@@ -31,7 +32,7 @@ module.exports = {
         'parallel-lending': '/parallel-lending/api',
         'parallel-stream': '/parallel-stream/api',
       },
-      /* {
+/*       {
         'acala-staking': '/acala-staking/api',
         'acala-lcdot': '/acala-lcdot/api',
         'tapio': '/tapio/api',
