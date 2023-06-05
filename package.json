@@ -16,6 +16,8 @@
     "@hubbleprotocol/kamino-sdk": "^1.0.101",
     "@injectivelabs/networks": "^1.0.37",
     "@injectivelabs/sdk-ts": "^1.0.209",
+    "@multiversx/sdk-core": "^12.2.1",
+    "@multiversx/sdk-network-providers": "^1.4.0",
     "@polkadot/api": "^10.2.1",
     "@raydium-io/raydium-sdk": "^1.3.0-beta.8",
     "cloudscraper": "^4.6.0",
