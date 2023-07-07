@@ -51,6 +51,7 @@ module.exports = {
   bulky: [
     [{
       'quantumx-network': '/quantumx-network/index',
+      'stackswap': '/stackswap/api',
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
       'kamino': '/kamino/api',
