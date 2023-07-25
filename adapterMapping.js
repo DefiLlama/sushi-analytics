@@ -45,12 +45,15 @@ module.exports = {
       },
       {
         'kintsugi': '/kintsugi/api',
+        'jewelswap-lev-farming': '/jewelswap-lev-farming/index',
+        'jewelswap-nft': '/jewelswap-nft/index',
+
       },
     ],
   ],
   bulky: [
     [{
-      'quantumx-network': '/quantumx-network/index',
+      // 'quantumx-network': '/quantumx-network/index',
       'stackswap': '/stackswap/api',
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
