@@ -60,7 +60,7 @@ module.exports = {
       'kamino': '/kamino/api',
       // '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
-      'summer-fi': '/summer-fi/index',
+      // 'summer-fi': '/summer-fi/index',
       'sunswap-v2': '/sunswap-v2/index',
       unicrypt: '/unicrypt/apiCache',
       deeplock: '/deeplock/apiCache',
