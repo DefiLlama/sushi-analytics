@@ -49,6 +49,9 @@ module.exports = {
         'jewelswap-nft': '/jewelswap-nft/index',
 
       },
+      {
+        'hydradx': '/hydradx/api',
+      },
     ],
   ],
   bulky: [
