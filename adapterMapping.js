@@ -52,6 +52,12 @@ module.exports = {
       {
         'hydradx': '/hydradx/api',
       },
+      {
+        'newbitcoin': '/newbitcoin/index',
+      },
+      {
+        'nemoswap': '/nemoswap/index',
+      },
     ],
   ],
   bulky: [

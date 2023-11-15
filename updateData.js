@@ -119,3 +119,8 @@ function exitScript() {
 const durationInMinutes = 50;
 const durationInMilliseconds = durationInMinutes * 60 * 1000;
 setTimeout(exitScript, durationInMilliseconds);
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Application specific logging, throwing an error, or other logic here
+});
