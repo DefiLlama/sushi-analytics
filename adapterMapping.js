@@ -54,8 +54,6 @@ module.exports = {
       },
       {
         'newbitcoin': '/newbitcoin/index',
-      },
-      {
         'nemoswap': '/nemoswap/index',
       },
     ],
