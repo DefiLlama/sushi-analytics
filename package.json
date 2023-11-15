@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --max-old-space-size=300 index.js",
-    "postinstall": "sh post-install.sh"
+    "postinstall": "node patch/patchAcala.js && sh post-install.sh"
   },
   "dependencies": {
     "@acala-network/api": "^6.0.4",
