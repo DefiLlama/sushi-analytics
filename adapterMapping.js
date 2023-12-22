@@ -55,7 +55,8 @@ module.exports = {
       {
         'newbitcoin': '/newbitcoin/index',
         'nemoswap': '/nemoswap/index',
-        'stackingdao': '/stackingdao/api',
+        // 'stackingdao': '/stackingdao/api',
+        'stacks': '/stacks/api',
       },
     ],
   ],
