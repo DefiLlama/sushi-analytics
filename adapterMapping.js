@@ -20,6 +20,7 @@ module.exports = {
         'interlay-btc': '/interlay-btc/api',
         'interlay-staking': '/interlay-staking/api',
         'interlay-collateral': '/interlay-collateral/api',
+        'interlay-dex': '/interlay-dex/api',
       },
     ],
     [
