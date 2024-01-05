@@ -21,6 +21,7 @@ module.exports = {
         'interlay-staking': '/interlay-staking/api',
         'interlay-collateral': '/interlay-collateral/api',
         'interlay-dex': '/interlay-dex/api',
+        'interlay-lending': '/interlay-lending/api',
       },
     ],
     [
