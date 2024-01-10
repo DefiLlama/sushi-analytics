@@ -80,7 +80,13 @@ async function updateProject(name, project, onlyIfMissing) {
 }
 
 async function updateProjectGroup(group, onlyIfMissing) {
-  for (const [name, project] of Object.entries(group))
+  const items = Object.entries(group)
+  // shuffle items
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+  for (const [name, project] of items)
     await updateProject(name, project, onlyIfMissing)
 }
 
