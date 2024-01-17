@@ -13,7 +13,7 @@
     "@defillama/sdk": "^5.0.0",
     "@hubbleprotocol/kamino-sdk": "^3.0.3",
     "@injectivelabs/networks": "^1.14.0",
-    "@injectivelabs/sdk-ts": "^1.14.0",
+    "@injectivelabs/sdk-ts": "^1.0.143",
     "@multiversx/sdk-core": "^12.2.1",
     "@multiversx/sdk-network-providers": "^2.1.0",
     "@multiversx/sdk-wallet": "^4.2.0",
