@@ -50,7 +50,7 @@ class Storage {
     const start = at ? api.at(at) : api;
     return arr.reduce((acc, pathItem) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return acc[pathItem];
+      return acc?.[pathItem];
     }, start);
   }
 
