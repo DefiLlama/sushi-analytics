@@ -31,6 +31,8 @@ module.exports = {
         // 'parallelamm': '/parallelamm/api',
         // 'parallel-lending': '/parallel-lending/api',
         // 'parallel-stream': '/parallel-stream/api',
+        'manta-atlantic-stake': '/manta-atlantic-stake/api',
+        'mantadex': '/mantadex/api',
       },
       {
         'acala-staking': '/acala-staking/api',
