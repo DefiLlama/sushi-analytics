@@ -61,6 +61,7 @@ module.exports = {
         'nemoswap': '/nemoswap/index',
         'stackingdao': '/stackingdao/api',
         'stacks': '/stacks/api',
+        'velar-amm': '/velar-amm/api',
       },
     ],
   ],
