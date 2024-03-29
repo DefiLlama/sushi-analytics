@@ -34,7 +34,8 @@ async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   const timestamp = time()
   log('[start]', project, chain)
   const api = new sdk.ChainApi({ chain, timestamp: Math.floor(new Date() / 1e3), })
-  const balances = await tvlFunction(timestamp, undefined, {}, { api, chain, storedKey: project })
+  api.timestamp = timestamp
+  const balances = await tvlFunction(api, undefined, {}, { api, chain, storedKey: project })
   writeToFile(chain, project, balances)
   log('[done]', project, chain, 'time taken: ', time() - timestamp)
 }
