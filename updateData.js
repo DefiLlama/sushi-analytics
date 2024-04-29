@@ -1,3 +1,11 @@
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ', err);
+})
+
 const adaptersDir = './DefiLlama-Adapters/projects'
 const { bulky, hourlyRun } = require('./adapterMapping')
 const sdk = require("@defillama/sdk");
@@ -125,6 +133,7 @@ function exitScript() {
 // Schedule the script to exit after 50 minutes
 const durationInMinutes = 50;
 const durationInMilliseconds = durationInMinutes * 60 * 1000;
+console.log(`Will auto exit in ${durationInMinutes} minutes`);
 setTimeout(exitScript, durationInMilliseconds);
 
 process.on('unhandledRejection', (reason, promise) => {

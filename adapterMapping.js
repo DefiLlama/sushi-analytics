@@ -3,7 +3,6 @@ module.exports = {
     [
       {
         'harvest': '/harvest.js',
-        'hydradex': '/hydradex.js',
         'hydradex-v3': '/hydradex-v3/index.js',
         'injective-orderbook': '/injective-orderbook/api',
         'lisa': '/lisa/api',
@@ -88,6 +87,7 @@ module.exports = {
 
       // breaks often
       'equilibrium': '/equilibrium/api',
+      'hydradex': '/hydradex.js',
 
       // chain down?
       'parallel-staking': '/parallel-staking/api',
