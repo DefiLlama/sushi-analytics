@@ -6,6 +6,7 @@ module.exports = {
         'hydradex': '/hydradex.js',
         'hydradex-v3': '/hydradex-v3/index.js',
         'injective-orderbook': '/injective-orderbook/api',
+        'lisa': '/lisa/api',
       },
       {
         'bifrost-staking': '/bifrost-staking/api',
