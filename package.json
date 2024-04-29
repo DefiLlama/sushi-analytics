@@ -7,20 +7,16 @@
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
-    "@acala-network/types": "^6.1.1",
     "@defillama/sdk": "^5.0.0",
     "@hubbleprotocol/kamino-sdk": "^5.0.3",
     "@injectivelabs/networks": "^1.14.0",
     "@injectivelabs/sdk-ts": "^1.14.5",
-    "@multiversx/sdk-core": "^12.2.1",
+    "@multiversx/sdk-core": "^13.0.0",
     "@multiversx/sdk-network-providers": "^2.1.0",
     "@multiversx/sdk-wallet": "^4.2.0",
-    "@polkadot/api": "^10.2.1",
+    "@polkadot/api": "^11.0.0",
     "@stacks/network": "^6.5.4",
     "@stacks/transactions": "^6.5.4",
-    "chai": "^4.3.10",
-    "cloudscraper": "^4.6.0",
-    "decimal.js": "^10.4.0",
     "request": "^2.88.2",
     "simple-git": "^3.20.0"
   },
