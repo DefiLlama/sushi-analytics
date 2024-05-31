@@ -43,6 +43,9 @@ module.exports = {
         'acala-dex': '/acala-dex/api',
       },
       {
+        'polkadex': '/polkadex/api',
+      },
+      {
         'karura-lending': '/karura-lending/api',
         'karura-staking': '/karura-staking/api',
         'taiga': '/taiga/api',
