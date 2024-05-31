@@ -3,6 +3,7 @@ module.exports = {
     [
       {
         'harvest': '/harvest.js',
+        'astar-dapps-staking': '/astar-dapps-staking/api',
         'hydradex-v3': '/hydradex-v3/index.js',
         'injective-orderbook': '/injective-orderbook/api',
         'lisa': '/lisa/api',
