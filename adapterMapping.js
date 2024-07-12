@@ -75,7 +75,7 @@ module.exports = {
     [{
       // 'quantumx-network': '/quantumx-network/index',
       'stackswap': '/stackswap/api',
-      'satoshi-dex': '/satoshi-dex/index',
+      'satoshi-dex': '/satoshi-dex/api',
       'raydium': '/raydium/index',
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
