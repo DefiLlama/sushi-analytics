@@ -75,6 +75,7 @@ module.exports = {
     [{
       // 'quantumx-network': '/quantumx-network/index',
       'stackswap': '/stackswap/api',
+      'alexlab': '/alexlab/api',
       'satoshi-dex': '/satoshi-dex/api',
       'raydium': '/raydium/index',
       'vitcswap': '/vitcswap/api',
