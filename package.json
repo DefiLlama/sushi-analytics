@@ -18,6 +18,7 @@
     "@polkadot/api": "^11.0.0",
     "@stacks/network": "^6.5.4",
     "@stacks/transactions": "^6.5.4",
+    "@stellar/stellar-sdk": "^12.3.0",
     "request": "^2.88.2",
     "simple-git": "^3.20.0"
   },

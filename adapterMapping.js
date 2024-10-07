@@ -2,6 +2,7 @@ module.exports = {
   hourlyRun: [
     [
       {
+        'fxdao': '/fxdao/api.js',
         'blend-pools': '/blend-pools/api.js',
         'blend-backstop': '/blend-backstop/api.js',
         'harvest': '/harvest.js',
