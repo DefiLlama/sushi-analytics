@@ -7,7 +7,7 @@
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
-    "@blend-capital/blend-sdk": "^1.1.1",
+    "@blend-capital/blend-sdk": "^2.1.1",
     "@defillama/sdk": "^5.0.0",
     "@hubbleprotocol/kamino-sdk": "^5.0.3",
     "@injectivelabs/networks": "^1.14.0",
