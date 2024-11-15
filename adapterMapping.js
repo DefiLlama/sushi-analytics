@@ -100,11 +100,11 @@ module.exports = {
       'hydradex': '/hydradex.js',
 
       // chain down?
-      'parallel-staking': '/parallel-staking/api',
-      'parallel-crowdloan': '/parallel-crowdloan/api',
-      'parallelamm': '/parallelamm/api',
-      'parallel-lending': '/parallel-lending/api',
-      'parallel-stream': '/parallel-stream/api',
+      // 'parallel-staking': '/parallel-staking/api',
+      // 'parallel-crowdloan': '/parallel-crowdloan/api',
+      // 'parallelamm': '/parallelamm/api',
+      // 'parallel-lending': '/parallel-lending/api',
+      // 'parallel-stream': '/parallel-stream/api',
     }],
   ],
 }
