@@ -81,7 +81,7 @@ module.exports = {
       'raydium': '/raydium/index',
       'vitcswap': '/vitcswap/api',
       'defichain-loans': '/defichain-loans',
-      'kamino': '/kamino/api',
+      // 'kamino': '/kamino/api',
       // '1inch': '/1inch/apiCache',
       'izumi': '/izumi/api',
       // 'summer-fi': '/summer-fi/index',
@@ -96,7 +96,7 @@ module.exports = {
       'dogeswap-org': '/dogeswap-org/api',
 
       // breaks often
-      'equilibrium': '/equilibrium/api',
+      // 'equilibrium': '/equilibrium/api',
       'hydradex': '/hydradex.js',
 
       // chain down?
