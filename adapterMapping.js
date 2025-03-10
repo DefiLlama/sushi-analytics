@@ -68,7 +68,6 @@ module.exports = {
         'nemoswap': '/nemoswap/index',
         'stackingdao': '/stackingdao/api',
         'stacks': '/stacks/api',
-        'velar-amm': '/velar-amm/api',
       },
     ],
   ],
@@ -76,6 +75,7 @@ module.exports = {
     [{
       // 'quantumx-network': '/quantumx-network/index',
       'stackswap': '/stackswap/api',
+      'velar-amm': '/velar-amm/api',
       'alexlab': '/alexlab/api',
       'satoshi-dex': '/satoshi-dex/api',
       'raydium': '/raydium/index',
