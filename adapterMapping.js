@@ -74,6 +74,7 @@ module.exports = {
   bulky: [
     [{
       // 'quantumx-network': '/quantumx-network/index',
+      'polkadot': '/treasury/polkadot-api',
       'stackswap': '/stackswap/api',
       'velar-amm': '/velar-amm/api',
       'alexlab': '/alexlab/api',
