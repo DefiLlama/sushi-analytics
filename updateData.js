@@ -7,7 +7,7 @@ process.on('uncaughtException', function (err) {
 })
 
 const adaptersDir = './DefiLlama-Adapters/projects'
-const { bulky, hourlyRun } = require('./adapterMapping')
+const { bulky, hourlyRun } = require('./DefiLlama-Adapters/projects/helper/sushi-server/adapterMapping')
 const sdk = require("@defillama/sdk");
 const fs = require('fs')
 const dataFile = 'data.json'
