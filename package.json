@@ -7,7 +7,7 @@
     "postinstall": "sh post-install.sh"
   },
   "dependencies": {
-    "@blend-capital/blend-sdk": "^2.1.1",
+    "@blend-capital/blend-sdk": "^3.0.1",
     "@coral-xyz/borsh": "^0.30.1",
     "@defillama/sdk": "^5.0.0",
     "@injectivelabs/networks": "^1.14.0",
@@ -19,7 +19,7 @@
     "@polkadot/api": "^11.0.0",
     "@stacks/network": "^7.0.0",
     "@stacks/transactions": "^7.0.0",
-    "@stellar/stellar-sdk": "^12.3.0",
+    "@stellar/stellar-sdk": "^13.3.0",
     "request": "^2.88.2",
     "simple-git": "^3.20.0"
   },
