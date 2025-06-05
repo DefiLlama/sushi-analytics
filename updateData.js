@@ -9,6 +9,8 @@ process.on('uncaughtException', function (err) {
 const adaptersDir = './DefiLlama-Adapters/projects'
 const { bulky, hourlyRun } = require('./DefiLlama-Adapters/projects/helper/sushi-server/adapterMapping')
 const sdk = require("@defillama/sdk");
+const { PromisePool } = require('@supercharge/promise-pool')
+
 const fs = require('fs')
 const dataFile = 'data.json'
 const logFile = 'debug.log'
@@ -37,7 +39,10 @@ function writeToFile(chain, project, data) {
 
 async function updateData(tvlFunction, project, chain, onlyIfMissing = false) {
   if (onlyIfMissing) {
-    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) return;  // update cache only if data is missing
+    if (chainData[project] && Object.keys(chainData[project][chain] || {}).length) { // update cache only if data is missing
+      log('[skipped]', project, chain, 'data already exists')
+      return;
+    }
   }
   const timestamp = time()
   log('[start]', project, chain)
@@ -110,12 +115,39 @@ async function main() {
     if (!group[adapterKey]) throw new Error('Adapter mapping not found!')
     return updateProjectGroup(group)
   }
+  /* 
+    for (const projectGroups of hourlyRun)
+      await Promise.all(projectGroups.map(updateProjectGroup))
+  
+    for (const projectGroups of bulky)
+      await Promise.all(projectGroups.map(group => updateProjectGroup(group, true))) 
+    
+    */
 
-  for (const projectGroups of hourlyRun)
-    await Promise.all(projectGroups.map(updateProjectGroup))
+  const items = []
+  for (const group of hourlyRun.flat()) {
+    for (const [name, project] of Object.entries(group)) {
+      items.push({ name, project, onlyIfMissing: false })
+    }
+  }
+  for (const group of bulky.flat()) {
+    for (const [name, project] of Object.entries(group)) {
+      items.push({ name, project, onlyIfMissing: true })
+    }
+  }
 
-  for (const projectGroups of bulky)
-    await Promise.all(projectGroups.map(group => updateProjectGroup(group, true)))
+  // shuffle items
+  items.sort(() => Math.random() - 0.5);
+  await PromisePool.withConcurrency(3)
+    .for(items).process(async (query) => {
+      try {
+        await updateProject(query.name, query.project, query.onlyIfMissing)
+      }
+      catch (e) {
+        console.error(e)
+        error(query.name, query.project, e?.message ?? JSON.stringify(e))
+      }
+    })
 }
 
 main().then(() => {

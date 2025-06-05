@@ -20,6 +20,7 @@
     "@stacks/network": "^7.0.0",
     "@stacks/transactions": "^7.0.0",
     "@stellar/stellar-sdk": "^13.3.0",
+    "@supercharge/promise-pool": "^3.2.0",
     "request": "^2.88.2",
     "simple-git": "^3.20.0"
   },
