@@ -36,7 +36,7 @@ async function updateData() {
   execSync('bash post-install.sh')
   console.log(new Date(), '[pre-update all]', i)
   await new Promise((resolve, reject) => {
-    const updateProcess = spawn('node', ['--max-old-space-size=1800', 'updateData.js']);
+    const updateProcess = spawn('node', ['--max-old-space-size=4800', 'updateData.js']);
     updateProcess.stdout.pipe(process.stdout)
     updateProcess.stderr.pipe(process.stderr)
 
