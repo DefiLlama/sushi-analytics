@@ -16,7 +16,7 @@
     "@multiversx/sdk-core": "^13.0.0",
     "@multiversx/sdk-network-providers": "^2.1.0",
     "@multiversx/sdk-wallet": "^4.2.0",
-    "@polkadot/api": "^11.0.0",
+    "@polkadot/api": "^16.1.1",
     "@stacks/network": "^7.0.0",
     "@stacks/transactions": "^7.0.0",
     "@stellar/stellar-sdk": "^13.3.0",
