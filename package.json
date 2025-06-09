@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=3000 index.js",
-    "postinstall": "sh post-install.sh"
+    "start": "sh post-install.sh && node --max-old-space-size=3000 index.js"
   },
   "dependencies": {
     "@blend-capital/blend-sdk": "^3.0.1",
