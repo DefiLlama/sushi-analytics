@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "sh post-install.sh && node --max-old-space-size=3000 index.js",
-    "cloud-start": "sh post-install.sh && node onlyServer.js"
+    "cloud-start": "node onlyServer.js"
   },
   "dependencies": {
     "@blend-capital/blend-sdk": "^3.0.1",
