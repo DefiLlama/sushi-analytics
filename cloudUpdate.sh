@@ -19,5 +19,6 @@ npm i
 npm update @defillama/sdk
 git stash
 
+cd ..
 
 npm run update-data
