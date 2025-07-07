@@ -1,3 +1,5 @@
+exit 0 # use cloudUpdate instead
+
 npm update  @defillama/sdk @kamino-finance/kliquidity-sdk
 
 
