@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "sh post-install.sh && node --max-old-space-size=3000 index.js",
+    "update-data": "sh post-install.sh && node --max-old-space-size=4000 updateData.js",
     "cloud-start": "node onlyServer.js"
   },
   "dependencies": {
