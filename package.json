@@ -9,6 +9,8 @@
     "cloud-start": "node onlyServer.js"
   },
   "dependencies": {
+    "@mysten/bcs": "^1.8.0",
+    "@mysten/sui": "^1.37.1",
     "@blend-capital/blend-sdk": "^3.0.1",
     "@coral-xyz/borsh": "^0.30.1",
     "@defillama/sdk": "^5.0.0",
